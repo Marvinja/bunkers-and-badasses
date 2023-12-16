@@ -213,6 +213,39 @@ export class AppComponent implements OnInit {
 
     console.log(`You chose a ${this.gunGuild} ${this.gunType}`);
   }
+
+  nfc!: string;
+
+  async readTag() {
+    const ndef = new NDEFReader();
+    await ndef.scan();
+    if ("NDEFReader" in window) {
+      const ndef = new NDEFReader();
+      try {
+        await ndef.scan();
+        ndef.onreading = (event:any) => {
+          const decoder = new TextDecoder();
+          for (const record of event.message.records) {
+            this.nfc = `${record.recordType} ${record.mediaType} ${decoder.decode(record.data)} `;
+            this.consoleLog("Record type:  " + record.recordType);
+            this.consoleLog("MIME type:    " + record.mediaType);
+            this.consoleLog("=== data ===\n" + decoder.decode(record.data));
+          }
+        }
+      } catch(error) {
+        this.consoleLog(error);
+      }
+    } else {
+      this.consoleLog("NDEFReader" in window);
+      this.consoleLog("Web NFC is not supported.");
+    }
+  }
+
+  consoleLog(data:any) {
+    let logElement = document.getElementById('log');
+    logElement!.innerHTML += data + '\n';
+  }
+  
   
   ngOnInit(): void {
     this.generateNewGun();    

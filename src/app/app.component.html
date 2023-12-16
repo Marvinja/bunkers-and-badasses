@@ -1,6 +1,10 @@
 <main class="main">
   <h1>{{ title }}</h1>
   
+  <button (click)="readTag()">Test NFC Read</button>
+
+  <p id="log"></p>
+
   <button (click)="generateNewGun()">Generate!</button>
   <br><br>
   <label for="level">Level</label>
