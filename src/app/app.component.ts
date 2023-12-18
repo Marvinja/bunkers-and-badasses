@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -20,7 +20,7 @@ export const gunTypes = [
   standalone: true,
   imports: [CommonModule, RouterOutlet, FormsModule, ReactiveFormsModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
   title = 'Bunkers-and-Badasses-Angular';
@@ -33,8 +33,6 @@ export class AppComponent implements OnInit {
   gunTypeRoll!: number;
   gunGuildRoll!: number;
   gunRarityRoll!: number[];
-
-  youRolledASeven = false;
 
   private _gunType!: string;
   get gunType() {
@@ -92,7 +90,7 @@ export class AppComponent implements OnInit {
 
       this.gunGuildRoll = this._Roll(8);
       if (this.gunGuildRoll === 8) {
-        this.gunType = this.gunGuild = '';
+        this.gunType = this.gunGuild ='';
         this.gunForm = new FormGroup({
           type: new FormControl({value: 'Rocket Launcher', disabled: true}),
           guild: new FormControl('Alas!')

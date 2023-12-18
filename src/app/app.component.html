@@ -1,5 +1,9 @@
 <main class="main">
   <h1>{{ title }}</h1>
+  
+  <label for="level">Level</label>
+  <input id="level"type="number" min="1" max="30" [defaultValue]="1" #level />
+
   <form [formGroup]="gunForm" (ngSubmit)="onSubmit()" *ngIf="gunTypeRoll === 8 || (gunTypeRoll === 7 && gunGuildRoll === 8)">
     <p>Select Favored Gun </p>
     <label for="type">Type</label>
@@ -25,7 +29,7 @@
     </select>
     <button type="submit">Submit</button>
   </form>
-  <p>{{ gunRarity }} {{ gunGuild }} {{ gunType }}</p>
+  <p>{{ level.value }} {{ gunRarity }} {{ gunGuild }} {{ gunType }}</p>
   <br>
   <button (click)="generateNewGun()">Generate!</button>
 </main>
