@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GUN_GUILDS, GUN_TABLE } from './tables';
+import { GUN_GUILDS, GUN_RARITIES, GUN_RARTIY_TABLE, GUN_TABLE } from './tables';
 
 export const gunTypes = [
   "Pistol",
@@ -22,7 +22,7 @@ export const gunTypes = [
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Bunkers-and-Badasses-Angular';
 
   gunForm = new FormGroup({
@@ -32,6 +32,7 @@ export class AppComponent {
 
   gunTypeRoll!: number;
   gunGuildRoll!: number;
+  gunRarityRoll!: number[];
 
   youRolledASeven = false;
 
@@ -51,9 +52,19 @@ export class AppComponent {
     this._gunGuild = guild;
   }
 
+  private _gunRarity!: string;
+  get gunRarity() {
+    return this._gunRarity;
+  }
+  set gunRarity(rarity: string) {
+    this._gunRarity = rarity;
+  }
+
   private _Roll(dieType: number) {
     return Math.ceil(Math.random() * dieType);
   }
+
+  constructor(private router: Router) {}
 
   generateNewGun() {
     //Reset 
@@ -63,10 +74,13 @@ export class AppComponent {
     })
 
     //New Gun
+
+    //Step 1 - Rolling Gun Type
     this.gunTypeRoll = this._Roll(8);
     this.gunType = this.getType(this.gunTypeRoll);
     console.log('Rolling Gun Type', this.gunTypeRoll, this.gunTypeRoll === 8 ? 'Choice' : this.gunType);
 
+    //Step 2 - Rolling Gun Guild
     if (this.gunTypeRoll < 7) {
       
       this.gunGuildRoll = this._Roll(8);
@@ -93,6 +107,10 @@ export class AppComponent {
       this.gunType = this.gunGuild = '';
     }
 
+    //Step 3 - Rolling Gun Rarity
+    this.gunRarityRoll = [this._Roll(4), this._Roll(6)]
+    this.gunRarity = this.getRarity(this.gunRarityRoll);
+    console.log('Rolling Gun Rarity', this.gunRarityRoll, this.gunRarity);
   }
 
   getType(type: number) {
@@ -101,6 +119,12 @@ export class AppComponent {
 
   getGuild(type: number, guild: number): string {
     return GUN_TABLE[type-1][guild-1]
+  }
+
+  getRarity(number: number[]): string {
+    const tableNumber = GUN_RARTIY_TABLE[number[0]-1][number[1]-1];
+    console.log(`You rolled a ${tableNumber}`)
+    return GUN_RARITIES[tableNumber-1];
   }
 
   onSubmit() {
@@ -114,5 +138,9 @@ export class AppComponent {
     this.gunGuild = typeof guild == 'string' ? guild : '';
 
     console.log(`You chose a ${this.gunGuild} ${this.gunType}`);
+  }
+  
+  ngOnInit(): void {
+    this.generateNewGun();    
   }
 }
