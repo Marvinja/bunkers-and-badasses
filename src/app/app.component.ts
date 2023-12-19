@@ -1,8 +1,9 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GUN_GUILDS, GUN_RARITIES, GUN_RARTIY_TABLE, GUN_TABLE } from './tables';
+import { GunCardComponent } from './gun-card/gun-card.component';
 
 export const gunTypes = [
   "Pistol",
@@ -13,27 +14,34 @@ export const gunTypes = [
   "Rocket Launcher",
   "You rolled a 7",
   "Favored Gun"
-]
+];
+
+export type GunType = "Pistol" | "Submachine Gun" | "Shotgun" | "Combat Rifle" | "Sniper Rifle" | "Rocket Launcher";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterOutlet, FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, GunCardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
   title = 'Bunkers-and-Badasses-Angular';
-
+  
   gunForm = new FormGroup({
     type: new FormControl('Pistol'),
     guild: new FormControl('Alas!')
   })
-
+  
   gunTypeRoll!: number;
   gunGuildRoll!: number;
   gunRarityRoll!: number[];
 
+
+  getLevel(string: string): number {
+    return parseInt(string);
+  }
+  
   private _gunType!: string;
   get gunType() {
     return this._gunType;

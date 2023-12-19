@@ -1,0 +1,22 @@
+
+<p>{{ level }}</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Accuracy</th>
+            <th>Hits</th>
+            <th>Crits</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let acc of accuracy, index as i">
+            <td>{{ accuracyRanges[i] }}</td>
+            <td>{{ acc.hits }}</td>
+            <td>{{ acc.crits }}</td>
+        </tr> 
+    </tbody>
+</table>
+
+<p>Damage: {{ damage[0] + 'd' + damage[1] }}</p>
+<p>Range: {{ range }}</p>
