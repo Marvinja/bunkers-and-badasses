@@ -1,6 +1,8 @@
 <main class="main">
   <h1>{{ title }}</h1>
   
+  <button (click)="generateNewGun()">Generate!</button>
+  <br><br>
   <label for="level">Level</label>
   <input id="level" type="number" min="1" max="30" [defaultValue]="1" #level />
 
@@ -30,14 +32,11 @@
     <button type="submit">Submit</button>
   </form>
   <p>{{ level.value }} {{ gunRarity }} {{ gunGuild }} {{ gunType }}</p>
-  <br>
-  <!-- <a [routerLink]="['/home']" routerLinkActive="active" ariaCurrentWhenActive="page" [queryParams]="{ type: gunType, guild: gunGuild, rarity: gunRarity, level: level.value}" queryParamsHandling="merge"> -->
-    <button (click)="generateNewGun()">Generate!</button>
-  <!-- </a> -->
+
 </main>
 
 @if (gunType === "Pistol" || gunType === "Submachine Gun" || gunType === "Shotgun"  || gunType === "Combat Rifle"  || gunType === "Sniper Rifle"  || gunType === "Rocket Launcher" ) {
-  <app-gun-card [level]="getLevel(level.value)" [type]="gunType"></app-gun-card>
+  <app-gun-card [level]="getLevel(level.value)" [type]="gunType" [guild]="gunGuild" [rarity]="gunRarity"></app-gun-card>
 }
 
 <router-outlet></router-outlet>

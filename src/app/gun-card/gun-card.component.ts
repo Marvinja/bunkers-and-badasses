@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, AfterViewInit, ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { GUN_TYPE_STATS } from '../tables';
+import { Component, Input } from '@angular/core';
+import { GUILD_BONUSES, GUN_TYPE_STATS } from '../tables';
+
+export type GuildTypes = "Alas!" | "Skuldugger" | "Dahlia" | "Blackpowder" | "Malefactor" | "Hyperius" | "Feriore" | "Torgue" | "Stoker";   
+export type RarityTypes = "common" | "uncommon" | "rare" | "epic" | "legendary";
 
 @Component({
   selector: 'app-gun-card',
@@ -35,5 +38,60 @@ export class GunCardComponent {
 
   get range() {
     return GUN_TYPE_STATS[this.type]["tier"][this.tier].range;
+  }
+
+  get guildBonus() {
+    return GUILD_BONUSES[this.convertGuild][this.convertRarity];
+  }
+
+  get convertRarity(): RarityTypes {
+    switch(this.rarity) {
+      case 'Common': 
+        return "common";
+      case 'Common (Elemental Roll)': 
+        return "common";
+      case 'Uncommon': 
+        return "uncommon";
+      case 'Uncommon (Elemental Roll)': 
+        return "uncommon";
+      case 'Rare': 
+        return "rare";
+      case 'Rare (Element Roll)': 
+        return "rare";
+      case 'Epic': return "epic";
+      case 'Epic (Element Roll)': 
+        return "epic";
+      case 'Legendary': 
+        return "legendary";
+      case 'Legendary (Element Roll)': 
+        return "legendary";
+      default:
+        return "common";
+    }
+  }
+
+  get convertGuild(): GuildTypes {
+    switch(this.guild) {
+      case "Alas!":
+        return "Alas!";
+      case "Skuldugger":
+        return "Skuldugger";
+      case "Dahlia":
+        return "Dahlia";
+      case "Blackpowder":
+        return "Blackpowder";
+      case "Malefactor":
+        return "Malefactor";
+      case "Hyperius":
+        return "Hyperius";
+      case "Feriore":
+        return "Feriore";
+      case "Torgue":
+        return "Torgue";
+      case "Stoker":
+        return "Stoker";
+      default:
+        return "Alas!";
+    }
   }
 }
