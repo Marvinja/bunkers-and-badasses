@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { GUILD_BONUSES, GUN_TYPE_STATS } from '../tables';
+import { GunTypes, GuildTypes } from '../app.component';
 
-export type GuildTypes = "Alas!" | "Skuldugger" | "Dahlia" | "Blackpowder" | "Malefactor" | "Hyperius" | "Feriore" | "Torgue" | "Stoker";   
 export type RarityTypes = "common" | "uncommon" | "rare" | "epic" | "legendary";
 
 @Component({
@@ -14,8 +14,8 @@ export type RarityTypes = "common" | "uncommon" | "rare" | "epic" | "legendary";
 })
 export class GunCardComponent {
   @Input() level!: number;
-  @Input() type!: "Pistol" | "Submachine Gun" | "Shotgun" | "Combat Rifle" | "Sniper Rifle" | "Rocket Launcher";
-  @Input() guild!: string;
+  @Input() type!: GunTypes;
+  @Input() guild!: GuildTypes;
   @Input() rarity!: string;
   @Input() element!: string;
 
@@ -30,22 +30,27 @@ export class GunCardComponent {
   }
 
   get accuracy() {
+    if (!this.type) { return }
     return GUN_TYPE_STATS[this.type]["tier"][this.tier].accuracy;
   }
   
   get damage() {
+    if (!this.type) { return }
     return GUN_TYPE_STATS[this.type]["tier"][this.tier].damage;
   }
 
   get range() {
+    if (!this.type) { return }
     return GUN_TYPE_STATS[this.type]["tier"][this.tier].range;
   }
 
   get guildBonus() {
-    return GUILD_BONUSES[this.convertGuild][this.convertRarity];
+    if (!this.guild) { return }
+    return GUILD_BONUSES[this.guild][this.convertRarity];
   }
 
   get weaponBonus() {
+    if (!this.type) { return }
     return GUN_TYPE_STATS[this.type].bonus;
   }
 

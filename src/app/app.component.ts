@@ -5,7 +5,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { GUN_GUILDS, GUN_RARITIES, GUN_RARTIY_TABLE, GUN_TABLE } from './tables';
 import { GunCardComponent } from './gun-card/gun-card.component';
 
-export const gunTypes = [
+export const gunTypeResults = [
   "Pistol",
   "Submachine Gun",
   "Shotgun",
@@ -16,7 +16,9 @@ export const gunTypes = [
   "Favored Gun"
 ];
 
-export type GunType = "Pistol" | "Submachine Gun" | "Shotgun" | "Combat Rifle" | "Sniper Rifle" | "Rocket Launcher";
+export type GunTypes = "Pistol" | "Submachine Gun" | "Shotgun" | "Combat Rifle" | "Sniper Rifle" | "Rocket Launcher" | undefined;
+export type GuildTypes = "Alas!" | "Skuldugger" | "Dahlia" | "Blackpowder" | "Malefactor" | "Hyperius" | "Feriore" | "Torgue" | "Stoker" | undefined;
+export type RarityTypes = "common" | "uncommon" | "rare" | "epic" | "legendary";
 
 @Component({
   selector: 'app-root',
@@ -37,24 +39,20 @@ export class AppComponent implements OnInit {
   gunGuildRoll!: number;
   gunRarityRoll!: number[];
 
-
-  getLevel(string: string): number {
-    return parseInt(string);
-  }
   
-  private _gunType!: string;
+  private _gunType!: GunTypes;
   get gunType() {
     return this._gunType;
   }
-  set gunType(type: string) {
+  set gunType(type: GunTypes) {
     this._gunType = type;
   }
   
-  private _gunGuild!: string;
+  private _gunGuild!: GuildTypes;
   get gunGuild() {
     return this._gunGuild;
   }
-  set gunGuild(guild: string) {
+  set gunGuild(guild: GuildTypes) {
     this._gunGuild = guild;
   }
 
@@ -83,14 +81,15 @@ export class AppComponent implements OnInit {
 
     //Step 1 - Rolling Gun Type
     this.gunTypeRoll = this._Roll(8);
-    this.gunType = this.getType(this.gunTypeRoll);
-    console.log('Rolling Gun Type', this.gunTypeRoll, this.gunTypeRoll === 8 ? 'Choice' : this.gunType);
+    let gunTypeResult = gunTypeResults[this.gunTypeRoll-1];
+    console.log('Rolling Gun Type', this.gunTypeRoll, this.gunTypeRoll === 8 ? 'Choice' : gunTypeResult);
 
     //Step 2 - Rolling Gun Guild
     if (this.gunTypeRoll < 7) {
       
       this.gunGuildRoll = this._Roll(8);
-      this.gunGuild = this.getGuild(this.gunTypeRoll, this.gunGuildRoll);
+      this.gunGuild = this.getGuild(this.gunTypeRoll, this.gunGuildRoll) as GuildTypes;
+      this.gunType = gunTypeResults[this.gunTypeRoll-1] as GunTypes;
 
       console.log('Rolling Gun Guild', this.gunGuildRoll, this.gunGuild);
 
@@ -98,19 +97,20 @@ export class AppComponent implements OnInit {
 
       this.gunGuildRoll = this._Roll(8);
       if (this.gunGuildRoll === 8) {
-        this.gunType = this.gunGuild ='';
+        gunTypeResult = '';
+        this.gunGuild = undefined;
         this.gunForm = new FormGroup({
           type: new FormControl({value: 'Rocket Launcher', disabled: true}),
           guild: new FormControl('Alas!')
         })
       } else {
-        this.gunGuild = this.getGuild(this.gunTypeRoll, this.gunGuildRoll);
+        this.gunGuild = this.getGuild(this.gunTypeRoll, this.gunGuildRoll) as GuildTypes;
         this.gunTypeRoll = [1, 3, 1, 2, 3, 4, 5, 6][this.gunGuildRoll-1];
-        this.gunType = this.getType(this.gunTypeRoll);
+        this.gunType = gunTypeResults[this.gunTypeRoll-1] as GunTypes;
       }
       console.log('You rolled a 7', this.gunType, this.gunTypeRoll, this.gunGuild, this.gunGuildRoll);
     } else {
-      this.gunType = this.gunGuild = '';
+      this.gunType = this.gunGuild = undefined;
     }
 
     //Step 3 - Rolling Gun Rarity
@@ -119,8 +119,12 @@ export class AppComponent implements OnInit {
     console.log('Rolling Gun Rarity', this.gunRarityRoll, this.gunRarity);
   }
 
+  getLevel(string: string): number {
+    return parseInt(string);
+  }
+
   getType(type: number) {
-    return gunTypes[type-1];
+    return gunTypeResults[type-1];
   }
 
   getGuild(type: number, guild: number): string {
@@ -139,9 +143,9 @@ export class AppComponent implements OnInit {
     if (this.gunTypeRoll === 7 && this.gunGuildRoll === 8) {
       this.gunType = "Rocket Launcher";
     } else {
-      this.gunType = typeof type == 'string' ? type : '';
+      this.gunType = type as GunTypes;
     }
-    this.gunGuild = typeof guild == 'string' ? guild : '';
+    this.gunGuild = guild as GuildTypes;
 
     console.log(`You chose a ${this.gunGuild} ${this.gunType}`);
   }

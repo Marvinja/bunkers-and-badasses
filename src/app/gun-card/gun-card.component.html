@@ -17,8 +17,9 @@
         </tr> 
     </tbody>
 </table>
-
-<p>Damage: {{ damage[0] + 'd' + damage[1] }}</p>
-<p>Range: {{ range }}</p>
-<p *ngIf="!!weaponBonus">Weapon Bonus: {{ weaponBonus }}</p>
-<p>Guild Bonus: {{ guildBonus }}</p>
+@if (damage !== undefined) {
+    <p>Damage: {{ damage[0] + 'd' + damage[1] }}</p>
+    <p>Range: {{ range }}</p>
+    <p *ngIf="!!weaponBonus">Weapon Bonus: {{ weaponBonus }}</p>
+    <p>Guild Bonus: {{ guildBonus }}</p>
+}
