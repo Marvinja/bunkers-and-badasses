@@ -89,7 +89,8 @@ export const GUN_TYPE_STATS = {
                 damage: [2,8],
                 range: 5,
             },
-        ] 
+        ],
+        bonus: '',
     },
     "Submachine Gun": {
         tier: [
@@ -138,7 +139,8 @@ export const GUN_TYPE_STATS = {
                 damage: [1,10],
                 range: 5,
             },
-        ] 
+        ],
+        bonus: '' 
     },
     "Shotgun": {
         tier: [
@@ -187,7 +189,8 @@ export const GUN_TYPE_STATS = {
                 damage: [1,12],
                 range: 4,
             },
-        ] 
+        ],
+        bonus: 'If Range 2 or Less: +2 Damage'
     },
     "Combat Rifle": {
         tier: [
@@ -236,7 +239,8 @@ export const GUN_TYPE_STATS = {
                 damage: [1,10],
                 range: 6,
             },
-        ] 
+        ],
+        bonus: ''
     },
     "Sniper Rifle": {
         tier: [
@@ -285,7 +289,8 @@ export const GUN_TYPE_STATS = {
                 damage: [1,12],
                 range: 8,
             },
-        ] 
+        ],
+        bonus: 'If range 3+: +3 Accuracy'
     },
     "Rocket Launcher": {
         tier: [
@@ -334,7 +339,8 @@ export const GUN_TYPE_STATS = {
                 damage: [1,20],
                 range: 4,
             },
-        ] 
+        ],
+        bonus: 'Splash'
     },
 }
 

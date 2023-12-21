@@ -26,7 +26,7 @@ export type GunType = "Pistol" | "Submachine Gun" | "Shotgun" | "Combat Rifle" |
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  title = 'Bunkers-and-Badasses-Angular';
+  title = 'Bunkers and Badasses Angular';
   
   gunForm = new FormGroup({
     type: new FormControl('Pistol'),

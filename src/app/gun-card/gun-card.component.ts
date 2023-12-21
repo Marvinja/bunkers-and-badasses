@@ -17,6 +17,7 @@ export class GunCardComponent {
   @Input() type!: "Pistol" | "Submachine Gun" | "Shotgun" | "Combat Rifle" | "Sniper Rifle" | "Rocket Launcher";
   @Input() guild!: string;
   @Input() rarity!: string;
+  @Input() element!: string;
 
   accuracyRanges = ['2-7', '8-15', '16+'];
 
@@ -42,6 +43,10 @@ export class GunCardComponent {
 
   get guildBonus() {
     return GUILD_BONUSES[this.convertGuild][this.convertRarity];
+  }
+
+  get weaponBonus() {
+    return GUN_TYPE_STATS[this.type].bonus;
   }
 
   get convertRarity(): RarityTypes {
