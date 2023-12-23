@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GUN_GUILDS, GUN_RARITIES, GUN_RARTIY_TABLE, GUN_TABLE } from './tables';
+import { ELEMENTAL_TABLE, GUILD_BONUSES, GUN_GUILDS, GUN_RARITIES, GUN_RARTIY_TABLE, GUN_TABLE } from './tables';
 import { GunCardComponent } from './gun-card/gun-card.component';
 
 export const gunTypeResults = [
@@ -38,6 +38,7 @@ export class AppComponent implements OnInit {
   gunTypeRoll!: number;
   gunGuildRoll!: number;
   gunRarityRoll!: number[];
+  gunElementRoll!: number;
 
   
   private _gunType!: GunTypes;
@@ -56,12 +57,20 @@ export class AppComponent implements OnInit {
     this._gunGuild = guild;
   }
 
-  private _gunRarity!: string;
+  private _gunRarity!: RarityTypes;
   get gunRarity() {
     return this._gunRarity;
   }
-  set gunRarity(rarity: string) {
+  set gunRarity(rarity: RarityTypes) {
     this._gunRarity = rarity;
+  }
+
+  private _gunElement!: string;
+  get gunElement() {
+    return this._gunElement;
+  }
+  set gunElement(element: string) {
+    this._gunElement = element;
   }
 
   private _Roll(dieType: number) {
@@ -114,17 +123,24 @@ export class AppComponent implements OnInit {
     }
 
     //Step 3 - Rolling Gun Rarity
-    this.gunRarityRoll = [this._Roll(4), this._Roll(6)]
-    this.gunRarity = this.getRarity(this.gunRarityRoll);
-    console.log('Rolling Gun Rarity', this.gunRarityRoll, this.gunRarity);
+    this.gunRarityRoll = [this._Roll(4), this._Roll(6)];
+    let gunRarityResult = this.getRarity(this.gunRarityRoll);
+    this.gunRarity = this.convertRarityToRarityType(gunRarityResult);
+    console.log('Rolling Gun Rarity', this.gunRarityRoll, gunRarityResult);
+
+    //Step 6 - Element
+    if (!!this.gunGuild && GUILD_BONUSES[this.gunGuild].elemental != 0) {
+      this.gunElementRoll = this._Roll(100);
+      console.log('Rolling Gun Element', this.gunElementRoll, this.getElement(this.gunElementRoll));
+      this.gunElement = this.getElement(this.gunElementRoll);
+    } else { 
+      this.gunElement = 'N/A'
+    }
+   
   }
 
   getLevel(string: string): number {
     return parseInt(string);
-  }
-
-  getType(type: number) {
-    return gunTypeResults[type-1];
   }
 
   getGuild(type: number, guild: number): string {
@@ -135,6 +151,16 @@ export class AppComponent implements OnInit {
     const tableNumber = GUN_RARTIY_TABLE[number[0]-1][number[1]-1];
     console.log(`You rolled a ${tableNumber}`)
     return GUN_RARITIES[tableNumber-1];
+  }
+
+  getElement(number: number):string {
+    const elementRollRanges = [0, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 92, 94, 96, 98, 100];
+    for (let i = 0; i < elementRollRanges.length - 1; i ++) {
+      if (number > elementRollRanges[i] && this.gunElementRoll <= elementRollRanges[i+1]) {
+        return ELEMENTAL_TABLE[this.gunRarity][i]
+      }
+    }
+    return "N/A"
   }
 
   onSubmit() {
@@ -152,5 +178,31 @@ export class AppComponent implements OnInit {
   
   ngOnInit(): void {
     this.generateNewGun();    
+  }
+
+  convertRarityToRarityType(rarity:string):RarityTypes {
+    switch(rarity) {
+      case 'Common': 
+        return "common";
+      case 'Common (Elemental Roll)': 
+        return "common";
+      case 'Uncommon': 
+        return "uncommon";
+      case 'Uncommon (Elemental Roll)': 
+        return "uncommon";
+      case 'Rare': 
+        return "rare";
+      case 'Rare (Element Roll)': 
+        return "rare";
+      case 'Epic': return "epic";
+      case 'Epic (Element Roll)': 
+        return "epic";
+      case 'Legendary': 
+        return "legendary";
+      case 'Legendary (Element Roll)': 
+        return "legendary";
+      default:
+        return "common";
+    }
   }
 }
