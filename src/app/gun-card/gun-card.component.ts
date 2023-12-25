@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { GUILD_BONUSES, GUN_TYPE_STATS } from '../tables';
-import { GunTypes, GuildTypes } from '../app.component';
-
-export type RarityTypes = "common" | "uncommon" | "rare" | "epic" | "legendary";
+import { GunTypes, GuildTypes, RarityTypes } from '../app.component';
 
 @Component({
   selector: 'app-gun-card',
@@ -16,7 +14,7 @@ export class GunCardComponent {
   @Input() level!: number;
   @Input() type!: GunTypes;
   @Input() guild!: GuildTypes;
-  @Input() rarity!: string;
+  @Input() rarity!: RarityTypes;
   @Input() element!: string;
 
   accuracyRanges = ['2-7', '8-15', '16+'];
@@ -46,62 +44,11 @@ export class GunCardComponent {
 
   get guildBonus() {
     if (!this.guild) { return }
-    return GUILD_BONUSES[this.guild][this.convertRarity];
+    return GUILD_BONUSES[this.guild][this.rarity];
   }
 
   get weaponBonus() {
     if (!this.type) { return }
     return GUN_TYPE_STATS[this.type].bonus;
-  }
-
-  get convertRarity(): RarityTypes {
-    switch(this.rarity) {
-      case 'Common': 
-        return "common";
-      case 'Common (Elemental Roll)': 
-        return "common";
-      case 'Uncommon': 
-        return "uncommon";
-      case 'Uncommon (Elemental Roll)': 
-        return "uncommon";
-      case 'Rare': 
-        return "rare";
-      case 'Rare (Element Roll)': 
-        return "rare";
-      case 'Epic': return "epic";
-      case 'Epic (Element Roll)': 
-        return "epic";
-      case 'Legendary': 
-        return "legendary";
-      case 'Legendary (Element Roll)': 
-        return "legendary";
-      default:
-        return "common";
-    }
-  }
-
-  get convertGuild(): GuildTypes {
-    switch(this.guild) {
-      case "Alas!":
-        return "Alas!";
-      case "Skuldugger":
-        return "Skuldugger";
-      case "Dahlia":
-        return "Dahlia";
-      case "Blackpowder":
-        return "Blackpowder";
-      case "Malefactor":
-        return "Malefactor";
-      case "Hyperius":
-        return "Hyperius";
-      case "Feriore":
-        return "Feriore";
-      case "Torgue":
-        return "Torgue";
-      case "Stoker":
-        return "Stoker";
-      default:
-        return "Alas!";
-    }
   }
 }

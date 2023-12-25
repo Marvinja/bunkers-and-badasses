@@ -94,17 +94,12 @@ export class AppComponent implements OnInit {
     console.log('Rolling Gun Type', this.gunTypeRoll, this.gunTypeRoll === 8 ? 'Choice' : gunTypeResult);
 
     //Step 2 - Rolling Gun Guild
+    this.gunGuildRoll = this._Roll(8);
     if (this.gunTypeRoll < 7) {
-      
-      this.gunGuildRoll = this._Roll(8);
       this.gunGuild = this.getGuild(this.gunTypeRoll, this.gunGuildRoll) as GuildTypes;
       this.gunType = gunTypeResults[this.gunTypeRoll-1] as GunTypes;
-
       console.log('Rolling Gun Guild', this.gunGuildRoll, this.gunGuild);
-
     } else if (this.gunTypeRoll === 7) {
-
-      this.gunGuildRoll = this._Roll(8);
       if (this.gunGuildRoll === 8) {
         gunTypeResult = '';
         this.gunGuild = undefined;
@@ -129,9 +124,22 @@ export class AppComponent implements OnInit {
     console.log('Rolling Gun Rarity', this.gunRarityRoll, gunRarityResult);
 
     //Step 6 - Element
-    if (!!this.gunGuild && GUILD_BONUSES[this.gunGuild].elemental != 0) {
-      this.gunElementRoll = this._Roll(100);
-      console.log('Rolling Gun Element', this.gunElementRoll, this.getElement(this.gunElementRoll));
+    this.gunElementRoll = this._Roll(100);
+    if (this.gunGuild === "Malefactor") {
+      switch(this.gunRarity) {
+        case 'rare':
+          this.gunElementRoll += 10;
+          break;
+        case 'epic': 
+          this.gunElementRoll += 15;
+          break;
+        case 'legendary': 
+          this.gunElementRoll += 20;
+          break;
+      }
+    }
+    console.log('Rolling Gun Element', this.gunElementRoll, this.getElement(this.gunElementRoll));
+    if (!!this.gunGuild && GUILD_BONUSES[this.gunGuild].elemental != 0 && gunRarityResult.includes('(Element Roll)') || this.gunGuild === "Malefactor") {
       this.gunElement = this.getElement(this.gunElementRoll);
     } else { 
       this.gunElement = 'N/A'
@@ -159,6 +167,10 @@ export class AppComponent implements OnInit {
       if (number > elementRollRanges[i] && this.gunElementRoll <= elementRollRanges[i+1]) {
         return ELEMENTAL_TABLE[this.gunRarity][i]
       }
+
+      if (number > 100) {
+        return ELEMENTAL_TABLE[this.gunRarity][elementRollRanges.length-1];
+      }
     }
     return "N/A"
   }
@@ -172,6 +184,12 @@ export class AppComponent implements OnInit {
       this.gunType = type as GunTypes;
     }
     this.gunGuild = guild as GuildTypes;
+
+    if (!!this.gunGuild && GUILD_BONUSES[this.gunGuild].elemental != 0 && this.getRarity(this.gunRarityRoll).includes('(Element Roll)') || this.gunGuild === "Malefactor") {
+      this.gunElement = this.getElement(this.gunElementRoll);
+    } else { 
+      this.gunElement = 'N/A'
+    }
 
     console.log(`You chose a ${this.gunGuild} ${this.gunType}`);
   }
@@ -194,7 +212,8 @@ export class AppComponent implements OnInit {
         return "rare";
       case 'Rare (Element Roll)': 
         return "rare";
-      case 'Epic': return "epic";
+      case 'Epic': 
+        return "epic";
       case 'Epic (Element Roll)': 
         return "epic";
       case 'Legendary': 

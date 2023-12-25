@@ -1,6 +1,3 @@
-
-<p>Level {{ level }}</p>
-
 <table>
     <thead>
         <tr>
@@ -22,5 +19,5 @@
     <p>Range: {{ range }}</p>
     <p *ngIf="!!weaponBonus">Weapon Bonus: {{ weaponBonus }}</p>
     <p>Guild Bonus: {{ guildBonus }}</p>
-    <p>Element: {{ element }}</p>
+    <p *ngIf="element != 'N/A'">Element: {{ element }}</p>
 }
