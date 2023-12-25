@@ -31,10 +31,10 @@
     </select>
     <button type="submit">Submit</button>
   </form>
-  <p *ngIf="!!level && !!gunRarity && !!gunGuild && !!gunType">{{ level.value }} {{ gunRarity }} {{ gunGuild }} {{ gunType }}</p>
+  <p *ngIf="!!level && !!gunRarity && !!gunGuild && !!gunType">{{ level.value }} {{ gunPrefix }} {{ gunRarity }} {{ gunGuild }} {{ gunType }}</p>
 
 </main>
 
-<app-gun-card [level]="getLevel(level.value)" [type]="gunType" [guild]="gunGuild" [rarity]="gunRarity" [element]="gunElement"></app-gun-card>
+<app-gun-card [level]="getLevel(level.value)" [type]="gunType" [guild]="gunGuild" [rarity]="gunRarity" [element]="gunElement" [prefix]="gunPrefix"></app-gun-card>
 
 <router-outlet></router-outlet>

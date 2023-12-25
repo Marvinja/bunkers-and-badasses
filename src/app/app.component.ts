@@ -2,8 +2,9 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ELEMENTAL_TABLE, GUILD_BONUSES, GUN_GUILDS, GUN_RARITIES, GUN_RARTIY_TABLE, GUN_TABLE } from './tables';
+import { ELEMENTAL_TABLE, GUILD_BONUSES, GUN_GUILDS, GUN_RARITIES, GUN_RARTIY_TABLE, GUN_TABLE, PREFIXES } from './tables';
 import { GunCardComponent } from './gun-card/gun-card.component';
+import { PrefixTypes } from './types';
 
 export const gunTypeResults = [
   "Pistol",
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit {
   gunGuildRoll!: number;
   gunRarityRoll!: number[];
   gunElementRoll!: number;
+  gunPrefixRoll!: number;
 
   
   private _gunType!: GunTypes;
@@ -71,6 +73,14 @@ export class AppComponent implements OnInit {
   }
   set gunElement(element: string) {
     this._gunElement = element;
+  }
+
+  private _gunPrefix!: PrefixTypes;
+  get gunPrefix() {
+    return this._gunPrefix;
+  }
+  set gunPrefix(prefix: PrefixTypes) {
+    this._gunPrefix = prefix;
   }
 
   private _Roll(dieType: number) {
@@ -144,7 +154,10 @@ export class AppComponent implements OnInit {
     } else { 
       this.gunElement = 'N/A'
     }
-   
+    
+    //Step 7 - Prefixes
+    this.gunPrefixRoll = this._Roll(Object.keys(PREFIXES).length);
+    this.gunPrefix = Object.keys(PREFIXES)[this.gunPrefixRoll] as PrefixTypes;
   }
 
   getLevel(string: string): number {

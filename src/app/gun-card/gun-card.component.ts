@@ -1,7 +1,8 @@
 import { CommonModule, KeyValuePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { GUILD_BONUSES, GUN_TYPE_STATS } from '../tables';
+import { GUILD_BONUSES, GUN_TYPE_STATS, PREFIXES } from '../tables';
 import { GunTypes, GuildTypes, RarityTypes } from '../app.component';
+import { PrefixTypes } from '../types';
 
 @Component({
   selector: 'app-gun-card',
@@ -16,6 +17,9 @@ export class GunCardComponent {
   @Input() guild!: GuildTypes;
   @Input() rarity!: RarityTypes;
   @Input() element!: string;
+  @Input() prefix!: PrefixTypes;
+
+  prefixDesc!: string;
 
   get tier() {
     return this.level < 7 ? 0
@@ -48,6 +52,10 @@ export class GunCardComponent {
   get weaponBonus() {
     if (!this.type) { return }
     return GUN_TYPE_STATS[this.type].bonus;
+  }
+
+  get prefixDescription() {
+    return PREFIXES[this.prefix];
   }
 
   keepOrder(a:any, b:any) {
