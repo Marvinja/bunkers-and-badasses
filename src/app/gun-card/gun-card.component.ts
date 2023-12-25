@@ -1,8 +1,8 @@
 import { CommonModule, KeyValuePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { GUILD_BONUSES, GUN_TYPE_STATS, PREFIXES } from '../tables';
-import { GunTypes, GuildTypes, RarityTypes } from '../app.component';
-import { PrefixTypes } from '../types';
+import { GunTypes, GuildTypes, RarityTypes } from '../types';
+import { ElementTypes, PrefixTypes } from '../types';
 
 @Component({
   selector: 'app-gun-card',
@@ -16,7 +16,7 @@ export class GunCardComponent {
   @Input() type!: GunTypes;
   @Input() guild!: GuildTypes;
   @Input() rarity!: RarityTypes;
-  @Input() element!: string;
+  @Input() element!: ElementTypes;
   @Input() prefix!: PrefixTypes;
 
   prefixDesc!: string;

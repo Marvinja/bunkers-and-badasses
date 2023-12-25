@@ -1,10 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ELEMENTAL_TABLE, GUILD_BONUSES, GUN_GUILDS, GUN_RARITIES, GUN_RARTIY_TABLE, GUN_TABLE, PREFIXES } from './tables';
+import { ELEMENTAL_TABLE, GUILD_BONUSES, GUN_RARITIES, GUN_RARTIY_TABLE, GUN_TABLE, PREFIXES } from './tables';
 import { GunCardComponent } from './gun-card/gun-card.component';
-import { PrefixTypes } from './types';
+import { ElementTypes, GuildTypes, GunTypes, PrefixTypes, RarityTypes } from './types';
 
 export const gunTypeResults = [
   "Pistol",
@@ -16,10 +16,6 @@ export const gunTypeResults = [
   "You rolled a 7",
   "Favored Gun"
 ];
-
-export type GunTypes = "Pistol" | "Submachine Gun" | "Shotgun" | "Combat Rifle" | "Sniper Rifle" | "Rocket Launcher" | undefined;
-export type GuildTypes = "Alas!" | "Skuldugger" | "Dahlia" | "Blackpowder" | "Malefactor" | "Hyperius" | "Feriore" | "Torgue" | "Stoker" | undefined;
-export type RarityTypes = "common" | "uncommon" | "rare" | "epic" | "legendary";
 
 @Component({
   selector: 'app-root',
@@ -67,11 +63,11 @@ export class AppComponent implements OnInit {
     this._gunRarity = rarity;
   }
 
-  private _gunElement!: string;
+  private _gunElement!: ElementTypes;
   get gunElement() {
     return this._gunElement;
   }
-  set gunElement(element: string) {
+  set gunElement(element: ElementTypes) {
     this._gunElement = element;
   }
 
@@ -150,7 +146,7 @@ export class AppComponent implements OnInit {
     }
     console.log('Rolling Gun Element', this.gunElementRoll, this.getElement(this.gunElementRoll));
     if (!!this.gunGuild && GUILD_BONUSES[this.gunGuild].elemental != 0 && gunRarityResult.includes('(Element Roll)') || this.gunGuild === "Malefactor") {
-      this.gunElement = this.getElement(this.gunElementRoll);
+      this.gunElement = this.getElement(this.gunElementRoll) as ElementTypes;
     } else { 
       this.gunElement = 'N/A'
     }
@@ -199,7 +195,7 @@ export class AppComponent implements OnInit {
     this.gunGuild = guild as GuildTypes;
 
     if (!!this.gunGuild && GUILD_BONUSES[this.gunGuild].elemental != 0 && this.getRarity(this.gunRarityRoll).includes('(Element Roll)') || this.gunGuild === "Malefactor") {
-      this.gunElement = this.getElement(this.gunElementRoll);
+      this.gunElement = this.getElement(this.gunElementRoll) as ElementTypes;
     } else { 
       this.gunElement = 'N/A'
     }
