@@ -7,10 +7,10 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let acc of accuracy, index as i">
-            <td>{{ accuracyRanges[i] }}</td>
-            <td>{{ acc.hits }}</td>
-            <td>{{ acc.crits }}</td>
+        <tr *ngFor="let acc of accuracy | keyvalue: keepOrder">
+            <td>{{ acc.key }}</td>
+            <td>{{ acc.value.hits }}</td>
+            <td>{{ acc.value.crits }}</td>
         </tr> 
     </tbody>
 </table>

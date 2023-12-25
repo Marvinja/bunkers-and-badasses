@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, KeyValuePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { GUILD_BONUSES, GUN_TYPE_STATS } from '../tables';
 import { GunTypes, GuildTypes, RarityTypes } from '../app.component';
@@ -6,7 +6,7 @@ import { GunTypes, GuildTypes, RarityTypes } from '../app.component';
 @Component({
   selector: 'app-gun-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, KeyValuePipe],
   templateUrl: './gun-card.component.html',
   styleUrl: './gun-card.component.scss',
 })
@@ -16,8 +16,6 @@ export class GunCardComponent {
   @Input() guild!: GuildTypes;
   @Input() rarity!: RarityTypes;
   @Input() element!: string;
-
-  accuracyRanges = ['2-7', '8-15', '16+'];
 
   get tier() {
     return this.level < 7 ? 0
@@ -50,5 +48,9 @@ export class GunCardComponent {
   get weaponBonus() {
     if (!this.type) { return }
     return GUN_TYPE_STATS[this.type].bonus;
+  }
+
+  keepOrder(a:any, b:any) {
+    return a;
   }
 }
