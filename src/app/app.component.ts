@@ -186,12 +186,10 @@ export class AppComponent implements OnInit {
 
   getPrefix(number: number) {
     this.gunPrefixRoll = this._Roll(Object.keys(PREFIXES).length);
-    if ((this.gunRarity === 'rare' && number > 50) || (this.gunRarity === 'epic' && number > 25)) {
+    if ((this.gunRarity === 'rare' && number > 75) || (this.gunRarity === 'epic' && number > 50) || (number > 95)) {
       this.gunPrefix = Object.keys(PREFIXES)[this.gunPrefixRoll] as PrefixTypes;
     } else if (this.gunRarity === 'legendary') {
       this.gunPrefix = Object.keys(RED_PREFIXES)[this.gunPrefixRoll] as RedPrefixTypes;
-    } else if (number > 90) {
-      this.gunPrefix = Object.keys(PREFIXES)[this.gunPrefixRoll] as PrefixTypes;
     } else {
       this.gunPrefix = undefined;
     }
