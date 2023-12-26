@@ -20,5 +20,5 @@
     <p *ngIf="!!weaponBonus">Weapon Bonus: {{ weaponBonus }}</p>
     <p>Guild Bonus: {{ guildBonus }}</p>
     <p *ngIf="element != 'N/A'">Element: {{ element }}</p>
-    <p>{{ prefix }}: {{ prefixDescription }}</p>
+    <p *ngIf="!!prefix">{{ prefix }}: {{ prefixDescription }}</p>
 }

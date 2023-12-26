@@ -31,7 +31,7 @@
     </select>
     <button type="submit">Submit</button>
   </form>
-  <p *ngIf="!!level && !!gunRarity && !!gunGuild && !!gunType">{{ level.value }} {{ gunPrefix }} {{ gunRarity }} {{ gunGuild }} {{ gunType }}</p>
+  <p *ngIf="!!level && !!gunRarity && !!gunGuild && !!gunType">{{ level.value }} {{ gunRarity !== 'legendary' ? gunPrefix : '' }} {{ gunRarity | titlecase }} {{ gunGuild }} {{ gunType }}</p>
 
 </main>
 

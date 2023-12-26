@@ -1,7 +1,7 @@
 import { CommonModule, KeyValuePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { GUILD_BONUSES, GUN_TYPE_STATS, PREFIXES } from '../tables';
-import { GunTypes, GuildTypes, RarityTypes } from '../types';
+import { GUILD_BONUSES, GUN_TYPE_STATS, PREFIXES, RED_PREFIXES } from '../tables';
+import { GunTypes, GuildTypes, RarityTypes, RedPrefixTypes } from '../types';
 import { ElementTypes, PrefixTypes } from '../types';
 
 @Component({
@@ -17,7 +17,7 @@ export class GunCardComponent {
   @Input() guild!: GuildTypes;
   @Input() rarity!: RarityTypes;
   @Input() element!: ElementTypes;
-  @Input() prefix!: PrefixTypes;
+  @Input() prefix!: PrefixTypes | RedPrefixTypes; 
 
   prefixDesc!: string;
 
@@ -55,7 +55,15 @@ export class GunCardComponent {
   }
 
   get prefixDescription() {
-    return PREFIXES[this.prefix];
+    if (this.rarity !== 'legendary') {
+      this.prefix = this.prefix as PrefixTypes;
+      if (!this.prefix) { return }
+      return PREFIXES[this.prefix]
+    } else {
+      this.prefix = this.prefix as RedPrefixTypes;
+      if (!this.prefix) { return }
+      return RED_PREFIXES[this.prefix]
+    }
   }
 
   keepOrder(a:any, b:any) {

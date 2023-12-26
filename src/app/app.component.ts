@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ELEMENTAL_TABLE, GUILD_BONUSES, GUN_RARITIES, GUN_RARTIY_TABLE, GUN_TABLE, PREFIXES } from './tables';
+import { ELEMENTAL_TABLE, GUILD_BONUSES, GUN_RARITIES, GUN_RARTIY_TABLE, GUN_TABLE, PREFIXES, RED_PREFIXES } from './tables';
 import { GunCardComponent } from './gun-card/gun-card.component';
-import { ElementTypes, GuildTypes, GunTypes, PrefixTypes, RarityTypes } from './types';
+import { ElementTypes, GuildTypes, GunTypes, PrefixTypes, RarityTypes, RedPrefixTypes } from './types';
 
 export const gunTypeResults = [
   "Pistol",
@@ -20,7 +20,7 @@ export const gunTypeResults = [
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, GunCardComponent],
+  imports: [CommonModule, RouterOutlet, FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, GunCardComponent, TitleCasePipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -71,11 +71,11 @@ export class AppComponent implements OnInit {
     this._gunElement = element;
   }
 
-  private _gunPrefix!: PrefixTypes;
+  private _gunPrefix!: PrefixTypes | RedPrefixTypes;
   get gunPrefix() {
     return this._gunPrefix;
   }
-  set gunPrefix(prefix: PrefixTypes) {
+  set gunPrefix(prefix: PrefixTypes | RedPrefixTypes) {
     this._gunPrefix = prefix;
   }
 
@@ -126,7 +126,7 @@ export class AppComponent implements OnInit {
     //Step 3 - Rolling Gun Rarity
     this.gunRarityRoll = [this._Roll(4), this._Roll(6)];
     let gunRarityResult = this.getRarity(this.gunRarityRoll);
-    this.gunRarity = this.convertRarityToRarityType(gunRarityResult);
+    this.gunRarity = this.convertToRarityType(gunRarityResult);
     console.log('Rolling Gun Rarity', this.gunRarityRoll, gunRarityResult);
 
     //Step 6 - Element
@@ -152,8 +152,8 @@ export class AppComponent implements OnInit {
     }
     
     //Step 7 - Prefixes
-    this.gunPrefixRoll = this._Roll(Object.keys(PREFIXES).length);
-    this.gunPrefix = Object.keys(PREFIXES)[this.gunPrefixRoll] as PrefixTypes;
+    const hasPrefixRoll = this._Roll(100);
+    this.getPrefix(hasPrefixRoll);
   }
 
   getLevel(string: string): number {
@@ -184,6 +184,19 @@ export class AppComponent implements OnInit {
     return "N/A"
   }
 
+  getPrefix(number: number) {
+    this.gunPrefixRoll = this._Roll(Object.keys(PREFIXES).length);
+    if ((this.gunRarity === 'rare' && number > 50) || (this.gunRarity === 'epic' && number > 25)) {
+      this.gunPrefix = Object.keys(PREFIXES)[this.gunPrefixRoll] as PrefixTypes;
+    } else if (this.gunRarity === 'legendary') {
+      this.gunPrefix = Object.keys(RED_PREFIXES)[this.gunPrefixRoll] as RedPrefixTypes;
+    } else if (number > 90) {
+      this.gunPrefix = Object.keys(PREFIXES)[this.gunPrefixRoll] as PrefixTypes;
+    } else {
+      this.gunPrefix = undefined;
+    }
+  }
+
   onSubmit() {
     const { type, guild } = this.gunForm.value;
 
@@ -207,7 +220,7 @@ export class AppComponent implements OnInit {
     this.generateNewGun();    
   }
 
-  convertRarityToRarityType(rarity:string):RarityTypes {
+  convertToRarityType(rarity:string):RarityTypes {
     switch(rarity) {
       case 'Common': 
         return "common";
@@ -232,5 +245,9 @@ export class AppComponent implements OnInit {
       default:
         return "common";
     }
+  }
+
+  capitaliseFirstLetter(string: string) {
+    return string.charAt(0).toUpperCase + string.slice(1);
   }
 }
