@@ -241,6 +241,26 @@ export class AppComponent implements OnInit {
     }
   }
 
+  async writeTag() {
+    if ("NDEFReader" in window) {
+      const ndef = new NDEFReader();
+      try {
+        await ndef.write({ records: [
+          { recordType: 'type', data: this.gunType },
+          { recordType: 'guild', data: this.gunGuild },
+          { recordType: 'rarity', data: this.gunRarity },
+          { recordType: 'element', data: this.gunElement },
+          { recordType: 'prefix', data: this.gunPrefix },
+        ]});
+        this.consoleLog("NDEF message written!");
+      } catch(error) {
+        this.consoleLog(error);
+      }
+    } else {
+      this.consoleLog("Web NFC is not supported.");
+    }
+  }
+
   consoleLog(data:any) {
     let logElement = document.getElementById('log');
     logElement!.innerHTML += data + '\n';
@@ -276,9 +296,5 @@ export class AppComponent implements OnInit {
       default:
         return "common";
     }
-  }
-
-  capitaliseFirstLetter(string: string) {
-    return string.charAt(0).toUpperCase + string.slice(1);
   }
 }
