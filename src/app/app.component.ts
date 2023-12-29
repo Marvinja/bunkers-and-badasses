@@ -217,8 +217,6 @@ export class AppComponent implements OnInit {
   nfc!: string;
 
   async readTag() {
-    const ndef = new NDEFReader();
-    await ndef.scan();
     if ("NDEFReader" in window) {
       const ndef = new NDEFReader();
       try {
@@ -246,13 +244,13 @@ export class AppComponent implements OnInit {
       const ndef = new NDEFReader();
       try {
         await ndef.write({ records: [
-          { recordType: 'text', data: this.gunType },
-          { recordType: 'text', data: this.gunGuild },
-          { recordType: 'text', data: this.gunRarity },
-          { recordType: 'text', data: this.gunElement },
-          { recordType: 'text', data: this.gunPrefix },
+          { recordType: 'text', data: this.gunType as string },
+          { recordType: 'text', data: this.gunGuild as string },
+          { recordType: 'text', data: this.gunRarity as string },
+          { recordType: 'text', data: this.gunElement as string },
+          { recordType: 'text', data: this.gunPrefix as string },
         ]});
-        this.consoleLog("NDEF message written!");
+        this.consoleLog(`${this.gunRarity} ${this.gunElement !== 'N/A' ? this.gunElement: ''} ${this.gunPrefix} ${this.gunGuild} ${this.gunType}`);
       } catch(error) {
         this.consoleLog(error);
       }
