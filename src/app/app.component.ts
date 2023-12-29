@@ -219,6 +219,7 @@ export class AppComponent implements OnInit {
   async readTag() {
     if ("NDEFReader" in window) {
       const ndef = new NDEFReader();
+      let gunData;
       try {
         await ndef.scan();
         document.getElementById('log')!.innerHTML = '';
@@ -228,19 +229,20 @@ export class AppComponent implements OnInit {
             this.nfc = `${record.recordType} ${record.mediaType} ${decoder.decode(record.data)} `;
             this.consoleLog("Record type:\n" + record.recordType);
             this.consoleLog("MIME type:\n" + record.mediaType);
-            this.consoleLog("=== data ===\n" + decoder.decode(record.data));
-            const gunData = decoder.decode(record.data).split(',');
-            this.gunType = gunData[0] as GunTypes;
-            this.gunGuild = gunData[1] as GuildTypes;
-            this.gunRarity = gunData[2] as RarityTypes;
-            this.gunElement = gunData[3] as ElementTypes;
-            this.gunPrefix = gunData[4] as PrefixTypes | RedPrefixTypes;
+            this.consoleLog("data:\n" + decoder.decode(record.data));
+            gunData = decoder.decode(record.data).split(',');
           }
         }
       } catch(error) {
         this.consoleLog(error);
       } finally {
-        
+        if (!!gunData) {
+          this.gunType = gunData[0] as GunTypes;
+          this.gunGuild = gunData[1] as GuildTypes;
+          this.gunRarity = gunData[2] as RarityTypes;
+          this.gunElement = gunData[3] as ElementTypes;
+          this.gunPrefix = gunData[4] as PrefixTypes | RedPrefixTypes;
+        }
       }
     } else {
       this.consoleLog("NDEFReader" in window);
