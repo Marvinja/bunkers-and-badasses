@@ -245,11 +245,7 @@ export class AppComponent implements OnInit {
       const ndef = new NDEFReader();
       try {
         await ndef.write({ records: [
-          { recordType: 'text', data: this.gunType as string },
-          { recordType: 'guild', data: this.gunGuild as string },
-          { recordType: 'rarity', data: this.gunRarity as string },
-          { recordType: 'element', data: this.gunElement as string },
-          { recordType: 'prefix', data: this.gunPrefix! as string },
+          { recordType: 'text', data: `${this.gunType},${this.gunGuild},${this.gunRarity},${this.gunElement},${this.gunPrefix}` as string },
         ]});
         this.consoleLog(`${this.gunRarity} ${this.gunElement !== 'N/A' ? this.gunElement: ''} ${!!this.gunPrefix} ${this.gunGuild} ${this.gunType}`);
       } catch(error) {
