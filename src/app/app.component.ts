@@ -246,11 +246,11 @@ export class AppComponent implements OnInit {
       const ndef = new NDEFReader();
       try {
         await ndef.write({ records: [
-          { recordType: 'type', data: this.gunType },
-          { recordType: 'guild', data: this.gunGuild },
-          { recordType: 'rarity', data: this.gunRarity },
-          { recordType: 'element', data: this.gunElement },
-          { recordType: 'prefix', data: this.gunPrefix },
+          { recordType: 'text', data: this.gunType },
+          { recordType: 'text', data: this.gunGuild },
+          { recordType: 'text', data: this.gunRarity },
+          { recordType: 'text', data: this.gunElement },
+          { recordType: 'text', data: this.gunPrefix },
         ]});
         this.consoleLog("NDEF message written!");
       } catch(error) {
