@@ -221,12 +221,13 @@ export class AppComponent implements OnInit {
       const ndef = new NDEFReader();
       try {
         await ndef.scan();
+        document.getElementById('log')!.innerHTML = '';
         ndef.onreading = (event:any) => {
           const decoder = new TextDecoder();
           for (const record of event.message.records) {
             this.nfc = `${record.recordType} ${record.mediaType} ${decoder.decode(record.data)} `;
-            this.consoleLog("Record type:  " + record.recordType);
-            this.consoleLog("MIME type:    " + record.mediaType);
+            this.consoleLog("Record type:\n" + record.recordType);
+            this.consoleLog("MIME type:\n" + record.mediaType);
             this.consoleLog("=== data ===\n" + decoder.decode(record.data));
           }
         }
@@ -261,7 +262,7 @@ export class AppComponent implements OnInit {
 
   consoleLog(data:any) {
     let logElement = document.getElementById('log');
-    logElement!.innerHTML += data + '\n';
+    logElement!.innerHTML = data + "\n";
   }
   
   
