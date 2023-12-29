@@ -38,7 +38,8 @@ export class AppComponent implements OnInit {
   gunElementRoll!: number;
   gunPrefixRoll!: number;
 
-  
+  nfc!: string;
+
   private _gunType!: GunTypes;
   get gunType() {
     return this._gunType;
@@ -155,6 +156,69 @@ export class AppComponent implements OnInit {
     const hasPrefixRoll = this._Roll(100);
     this.getPrefix(hasPrefixRoll);
   }
+  
+  ngOnInit(): void {
+    this.generateNewGun();    
+  }
+
+  async readTag() {
+    if ("NDEFReader" in window) {
+      const ndef = new NDEFReader();
+      try {
+        await ndef.scan({signal: AbortSignal.timeout(10000)});
+        ndef.onreading = (event: NDEFReadingEvent) => {
+          this.consoleLog("Event: " + event);
+          const decoder = new TextDecoder();
+          for (const record of event.message.records) {
+            this.consoleLog("Record type: " + record.recordType);
+            this.consoleLog("MIME type: " + record.mediaType);
+            this.consoleLog("data: " + decoder.decode(record.data));
+            let gunData = decoder.decode(record.data).split(',');
+            this.gunType = gunData[0] as GunTypes;
+            this.gunGuild = gunData[1] as GuildTypes;
+            this.gunRarity = gunData[2] as RarityTypes;
+            this.gunElement = gunData[3] as ElementTypes;
+            this.gunPrefix = gunData[4] === 'undefined' ? undefined : gunData[4] as PrefixTypes | RedPrefixTypes;
+            this.consoleLog(`Gun loaded: ${this.gunType} ${this.gunGuild} ${this.gunRarity} ${this.gunElement} ${this.gunPrefix}`);
+          }
+          this._cdf.detectChanges();
+        }
+      } catch (error: any) {
+        if (error.name === 'TimeoutError') { 
+          this.consoleLog('Timeout: You took longer than 10 seconds to scan')
+        } else {
+          this.consoleLog('Error: ' + error);
+        }
+      }
+    } else {
+      this.consoleLog("Web NFC is not supported.");
+    }
+  }
+
+  async writeTag() {
+    if ("NDEFReader" in window) {
+      const ndef = new NDEFReader();
+      try {
+        await ndef.write({ records: [
+          { recordType: 'text', data: `${this.gunType},${this.gunGuild},${this.gunRarity},${this.gunElement},${this.gunPrefix}` as string },
+        ]});
+        this.consoleLog(`${this.gunRarity} ${this.gunElement !== 'N/A' ? this.gunElement: ''} ${!!this.gunPrefix} ${this.gunGuild} ${this.gunType}`);
+      } catch(error) {
+        this.consoleLog(error);
+      }
+    } else {
+      this.consoleLog("Web NFC is not supported.");
+    }
+  }
+
+  consoleLog(data:any) {
+    let logElement = document.getElementById('log');
+    logElement!.innerHTML += data + "<br/> <br/>";
+  }
+
+  clearLog() {
+    document.getElementById('log')!.innerHTML = '';
+  }
 
   getLevel(string: string): number {
     return parseInt(string);
@@ -212,68 +276,6 @@ export class AppComponent implements OnInit {
     }
 
     console.log(`You chose a ${this.gunGuild} ${this.gunType}`);
-  }
-
-  nfc!: string;
-
-  async readTag() {
-    if ("NDEFReader" in window) {
-      const ndef = new NDEFReader();
-      let gunData;
-      try {
-        await ndef.scan();
-        document.getElementById('log')!.innerHTML = '';
-        ndef.onreading = (event:any) => {
-          const decoder = new TextDecoder();
-          for (const record of event.message.records) {
-            this.nfc = `${record.recordType} ${record.mediaType} ${decoder.decode(record.data)}`;
-            this.consoleLog("Record type:\n" + record.recordType);
-            this.consoleLog("MIME type:\n" + record.mediaType);
-            this.consoleLog("data:\n" + decoder.decode(record.data));
-            gunData = decoder.decode(record.data).split(',');
-            if (!!gunData) {
-              this.gunType = gunData[0] as GunTypes;
-              this.gunGuild = gunData[1] as GuildTypes;
-              this.gunRarity = gunData[2] as RarityTypes;
-              this.gunElement = gunData[3] as ElementTypes;
-              this.gunPrefix = gunData[4] as PrefixTypes | RedPrefixTypes;
-              this._cdf.markForCheck();
-            }
-          }
-        }
-      } catch(error) {
-        this.consoleLog(error);
-      }
-    } else {
-      this.consoleLog("NDEFReader" in window);
-      this.consoleLog("Web NFC is not supported.");
-    }
-  }
-
-  async writeTag() {
-    if ("NDEFReader" in window) {
-      const ndef = new NDEFReader();
-      try {
-        await ndef.write({ records: [
-          { recordType: 'text', data: `${this.gunType},${this.gunGuild},${this.gunRarity},${this.gunElement},${this.gunPrefix}` as string },
-        ]});
-        this.consoleLog(`${this.gunRarity} ${this.gunElement !== 'N/A' ? this.gunElement: ''} ${!!this.gunPrefix} ${this.gunGuild} ${this.gunType}`);
-      } catch(error) {
-        this.consoleLog(error);
-      }
-    } else {
-      this.consoleLog("Web NFC is not supported.");
-    }
-  }
-
-  consoleLog(data:any) {
-    let logElement = document.getElementById('log');
-    logElement!.innerHTML = data + "\n";
-  }
-  
-  
-  ngOnInit(): void {
-    this.generateNewGun();    
   }
 
   convertToRarityType(rarity:string):RarityTypes {
