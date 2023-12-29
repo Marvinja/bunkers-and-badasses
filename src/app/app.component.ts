@@ -229,10 +229,18 @@ export class AppComponent implements OnInit {
             this.consoleLog("Record type:\n" + record.recordType);
             this.consoleLog("MIME type:\n" + record.mediaType);
             this.consoleLog("=== data ===\n" + decoder.decode(record.data));
+            const gunData = decoder.decode(record.data).split(',');
+            this.gunType = gunData[0] as GunTypes;
+            this.gunGuild = gunData[1] as GuildTypes;
+            this.gunRarity = gunData[2] as RarityTypes;
+            this.gunElement = gunData[3] as ElementTypes;
+            this.gunPrefix = gunData[4] as PrefixTypes | RedPrefixTypes;
           }
         }
       } catch(error) {
         this.consoleLog(error);
+      } finally {
+        
       }
     } else {
       this.consoleLog("NDEFReader" in window);
