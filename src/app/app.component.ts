@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -83,7 +83,7 @@ export class AppComponent implements OnInit {
     return Math.ceil(Math.random() * dieType);
   }
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private _cdf: ChangeDetectorRef) {}
 
   generateNewGun() {
     //Reset 
@@ -231,18 +231,18 @@ export class AppComponent implements OnInit {
             this.consoleLog("MIME type:\n" + record.mediaType);
             this.consoleLog("data:\n" + decoder.decode(record.data));
             gunData = decoder.decode(record.data).split(',');
+            if (!!gunData) {
+              this.gunType = gunData[0] as GunTypes;
+              this.gunGuild = gunData[1] as GuildTypes;
+              this.gunRarity = gunData[2] as RarityTypes;
+              this.gunElement = gunData[3] as ElementTypes;
+              this.gunPrefix = gunData[4] as PrefixTypes | RedPrefixTypes;
+              this._cdf.markForCheck();
+            }
           }
         }
       } catch(error) {
         this.consoleLog(error);
-      } finally {
-        if (!!gunData) {
-          this.gunType = gunData[0] as GunTypes;
-          this.gunGuild = gunData[1] as GuildTypes;
-          this.gunRarity = gunData[2] as RarityTypes;
-          this.gunElement = gunData[3] as ElementTypes;
-          this.gunPrefix = gunData[4] as PrefixTypes | RedPrefixTypes;
-        }
       }
     } else {
       this.consoleLog("NDEFReader" in window);
