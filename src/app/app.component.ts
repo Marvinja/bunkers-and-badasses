@@ -224,9 +224,9 @@ export class AppComponent implements OnInit {
         ndef.onreading = (event:any) => {
           const decoder = new TextDecoder();
           for (const record of event.message.records) {
-            this.nfc = `${record.recordType} ${record.mediaType} ${decoder.decode(record.data)} `;
-            this.consoleLog("Record type:  " + record.recordType);
-            this.consoleLog("MIME type:    " + record.mediaType);
+            this.nfc = `${record.recordType} ${record.mediaType} ${decoder.decode(record.data)}`;
+            this.consoleLog("Record type:\n" + record.recordType);
+            this.consoleLog("MIME type:\n" + record.mediaType);
             this.consoleLog("=== data ===\n" + decoder.decode(record.data));
           }
         }
@@ -245,12 +245,12 @@ export class AppComponent implements OnInit {
       try {
         await ndef.write({ records: [
           { recordType: 'text', data: this.gunType as string },
-          { recordType: 'text', data: this.gunGuild as string },
-          { recordType: 'text', data: this.gunRarity as string },
-          { recordType: 'text', data: this.gunElement as string },
-          { recordType: 'text', data: this.gunPrefix as string },
+          { recordType: 'guild', data: this.gunGuild as string },
+          { recordType: 'rarity', data: this.gunRarity as string },
+          { recordType: 'element', data: this.gunElement as string },
+          { recordType: 'prefix', data: this.gunPrefix! as string },
         ]});
-        this.consoleLog(`${this.gunRarity} ${this.gunElement !== 'N/A' ? this.gunElement: ''} ${this.gunPrefix} ${this.gunGuild} ${this.gunType}`);
+        this.consoleLog(`${this.gunRarity} ${this.gunElement !== 'N/A' ? this.gunElement: ''} ${!!this.gunPrefix} ${this.gunGuild} ${this.gunType}`);
       } catch(error) {
         this.consoleLog(error);
       }
