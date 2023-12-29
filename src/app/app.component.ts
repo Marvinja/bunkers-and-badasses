@@ -221,6 +221,7 @@ export class AppComponent implements OnInit {
       const ndef = new NDEFReader();
       try {
         await ndef.scan();
+        document.getElementById('log')!.innerHTML = '';
         ndef.onreading = (event:any) => {
           const decoder = new TextDecoder();
           for (const record of event.message.records) {
@@ -261,7 +262,7 @@ export class AppComponent implements OnInit {
 
   consoleLog(data:any) {
     let logElement = document.getElementById('log');
-    logElement!.innerHTML += data + '\n';
+    logElement!.innerHTML = data + "\n";
   }
   
   
