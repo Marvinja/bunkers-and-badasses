@@ -4,6 +4,7 @@
   <button (click)="readTag()">Load Gun</button>
   <dialog #dialog>
     Tap NFC chip to load gun
+    <p #loadedGun></p>
     <button (click)="closeDialog()">X</button>
   </dialog>
   <button (click)="writeTag()">Save Gun</button>
@@ -47,5 +48,5 @@
 
 <h4>Log</h4>
 <button (click)="clearLog()">Clear Logs</button>
-<p id="log"></p>
+<p id="log" #log></p>
 <router-outlet></router-outlet>

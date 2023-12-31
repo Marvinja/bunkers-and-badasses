@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -83,6 +83,8 @@ export class AppComponent implements OnInit {
   }
 
   @ViewChild('dialog') dialog!: ElementRef<HTMLDialogElement>;
+  @ViewChild('log') log!: ElementRef<HTMLElement>;
+  @ViewChild('loadedGun') loadedGun!: ElementRef<HTMLElement>;
   
   private _Roll(dieType: number) {
     return Math.ceil(Math.random() * dieType);
@@ -189,6 +191,7 @@ export class AppComponent implements OnInit {
             this.consoleLog(`Gun loaded: ${this.gunType} ${this.gunGuild} ${this.gunRarity} ${this.gunElement} ${this.gunPrefix}`);
           }
           this._cdf.detectChanges();
+          this.loadedGun.nativeElement.innerHTML = `Gun loaded: ${this.gunType} ${this.gunGuild} ${this.gunRarity} ${this.gunElement} ${this.gunPrefix}`;
         }
       } catch (error: any) {
         if (error.name === 'TimeoutError') { 
@@ -219,12 +222,11 @@ export class AppComponent implements OnInit {
   }
 
   consoleLog(data:any) {
-    let logElement = document.getElementById('log');
-    logElement!.innerHTML += data + "<br/> <br/>";
+    this.log!.nativeElement.innerHTML += data + "<br/> <br/>";
   }
 
   clearLog() {
-    document.getElementById('log')!.innerHTML = '';
+    this.log!.nativeElement.innerHTML = '';
   }
 
   closeDialog() {
