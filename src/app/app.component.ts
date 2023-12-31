@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -39,6 +39,8 @@ export class AppComponent implements OnInit {
   gunPrefixRoll!: number;
 
   nfc!: string;
+  ndef!: NDEFReader;
+  controller!: AbortController;
 
   private _gunType!: GunTypes;
   get gunType() {
@@ -80,6 +82,8 @@ export class AppComponent implements OnInit {
     this._gunPrefix = prefix;
   }
 
+  @ViewChild('dialog') dialog!: ElementRef<HTMLDialogElement>;
+  
   private _Roll(dieType: number) {
     return Math.ceil(Math.random() * dieType);
   }
@@ -162,11 +166,14 @@ export class AppComponent implements OnInit {
   }
 
   async readTag() {
+    this.dialog.nativeElement.showModal();
+    this.controller = new AbortController();
+    const signal = this.controller.signal;
     if ("NDEFReader" in window) {
-      const ndef = new NDEFReader();
+      this.ndef = new NDEFReader();
       try {
-        await ndef.scan({signal: AbortSignal.timeout(10000)});
-        ndef.onreading = (event: NDEFReadingEvent) => {
+        await this.ndef.scan({signal});
+        this.ndef.onreading = (event: NDEFReadingEvent) => {
           this.consoleLog("Event: " + event);
           const decoder = new TextDecoder();
           for (const record of event.message.records) {
@@ -218,6 +225,11 @@ export class AppComponent implements OnInit {
 
   clearLog() {
     document.getElementById('log')!.innerHTML = '';
+  }
+
+  closeDialog() {
+    this.controller.abort();
+    this.dialog.nativeElement.close();
   }
 
   getLevel(string: string): number {

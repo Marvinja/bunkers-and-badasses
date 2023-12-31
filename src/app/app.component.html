@@ -1,12 +1,14 @@
 <main class="main">
   <h1>{{ title }}</h1>
   
-  <button (click)="readTag()">Test NFC Read</button>
-  <button (click)="writeTag()">Test NFC Write</button>
-  <button (click)="clearLog()">Clear Logs</button>
+  <button (click)="readTag()">Load Gun</button>
+  <dialog #dialog>
+    Tap NFC chip to load gun
+    <button (click)="closeDialog()">X</button>
+  </dialog>
+  <button (click)="writeTag()">Save Gun</button>
 
-  
-
+  <br><br>
   <button (click)="generateNewGun()">Generate!</button>
   <br><br>
   <label for="level">Level</label>
@@ -43,8 +45,7 @@
 
 <app-gun-card [level]="getLevel(level.value)" [type]="gunType" [guild]="gunGuild" [rarity]="gunRarity" [element]="gunElement" [prefix]="gunPrefix"></app-gun-card>
 
-<h1>Log</h1>
-
+<h4>Log</h4>
+<button (click)="clearLog()">Clear Logs</button>
 <p id="log"></p>
-
 <router-outlet></router-outlet>
