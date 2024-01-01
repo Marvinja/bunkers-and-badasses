@@ -3,7 +3,11 @@
   
   <button (click)="readTag()">Load Gun</button>
   <dialog #dialog>
-    Tap NFC chip to load gun
+    @if (dialogState === 'read') {
+      Tap your NFC chip to load gun
+    } @else {
+      Tap to save your gun to an NFC Chip
+    }
     <p #loadedGun></p>
     <button (click)="closeDialog()">X</button>
   </dialog>

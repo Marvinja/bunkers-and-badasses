@@ -41,6 +41,7 @@ export class AppComponent implements OnInit {
   nfc!: string;
   ndef!: NDEFReader;
   controller!: AbortController;
+  dialogState!: 'read' | 'write';
 
   private _gunType!: GunTypes;
   get gunType() {
@@ -168,11 +169,12 @@ export class AppComponent implements OnInit {
   }
 
   async readTag() {
+    this.dialogState = 'read';
     this.dialog.nativeElement.showModal();
-    this.controller = new AbortController();
-    const signal = this.controller.signal;
     if ("NDEFReader" in window) {
       this.ndef = new NDEFReader();
+      this.controller = new AbortController();
+      const signal = this.controller.signal;
       try {
         await this.ndef.scan({signal});
         this.ndef.onreading = (event: NDEFReadingEvent) => {
@@ -206,12 +208,16 @@ export class AppComponent implements OnInit {
   }
 
   async writeTag() {
+    this.dialogState = 'write';
+    this.dialog.nativeElement.showModal();
     if ("NDEFReader" in window) {
       const ndef = new NDEFReader();
+      this.controller = new AbortController();
+      const signal = this.controller.signal;
       try {
         await ndef.write({ records: [
           { recordType: 'text', data: `${this.gunType},${this.gunGuild},${this.gunRarity},${this.gunElement},${this.gunPrefix}` as string },
-        ]});
+        ]}, { signal });
         this.consoleLog(`${this.gunRarity} ${this.gunElement !== 'N/A' ? this.gunElement: ''} ${!!this.gunPrefix} ${this.gunGuild} ${this.gunType}`);
       } catch(error) {
         this.consoleLog(error);
@@ -230,7 +236,9 @@ export class AppComponent implements OnInit {
   }
 
   closeDialog() {
-    this.controller.abort();
+    if ("NDEFReader" in window) {
+      this.controller.abort();
+    }
     this.dialog.nativeElement.close();
   }
 
