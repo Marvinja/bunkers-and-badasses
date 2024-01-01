@@ -1,3 +1,14 @@
+export const GUN_TYPE_RESULTS = [
+    "Pistol",
+    "Submachine Gun",
+    "Shotgun",
+    "Combat Rifle",
+    "Sniper Rifle",
+    "Rocket Launcher",
+    "You rolled a 7",
+    "Favored Gun"
+];
+
 export const GUN_GUILDS = [
     'Alas!',
     'Skuldugger',

@@ -5,7 +5,7 @@ import { GunTypes, GuildTypes, RarityTypes, RedPrefixTypes } from '../types';
 import { ElementTypes, PrefixTypes } from '../types';
 
 @Component({
-  selector: 'app-gun-card',
+  selector: 'bnb-gun-card',
   standalone: true,
   imports: [CommonModule, KeyValuePipe],
   templateUrl: './gun-card.component.html',

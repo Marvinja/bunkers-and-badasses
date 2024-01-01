@@ -2,25 +2,15 @@ import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChil
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ELEMENTAL_TABLE, GUILD_BONUSES, GUN_RARITIES, GUN_RARTIY_TABLE, GUN_TABLE, PREFIXES, RED_PREFIXES } from './tables';
+import { GUN_TYPE_RESULTS, ELEMENTAL_TABLE, GUILD_BONUSES, GUN_RARITIES, GUN_RARTIY_TABLE, GUN_TABLE, PREFIXES, RED_PREFIXES } from './tables';
 import { GunCardComponent } from './gun-card/gun-card.component';
 import { ElementTypes, GuildTypes, GunTypes, PrefixTypes, RarityTypes, RedPrefixTypes } from './types';
-
-export const gunTypeResults = [
-  "Pistol",
-  "Submachine Gun",
-  "Shotgun",
-  "Combat Rifle",
-  "Sniper Rifle",
-  "Rocket Launcher",
-  "You rolled a 7",
-  "Favored Gun"
-];
+import { HistoryListComponent } from './history-list/history-list.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, GunCardComponent, TitleCasePipe],
+  imports: [CommonModule, RouterOutlet, FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, GunCardComponent, TitleCasePipe, HistoryListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -104,14 +94,14 @@ export class AppComponent implements OnInit {
 
     //Step 1 - Rolling Gun Type
     this.gunTypeRoll = this._Roll(8);
-    let gunTypeResult = gunTypeResults[this.gunTypeRoll-1];
+    let gunTypeResult = GUN_TYPE_RESULTS[this.gunTypeRoll-1];
     console.log('Rolling Gun Type', this.gunTypeRoll, this.gunTypeRoll === 8 ? 'Choice' : gunTypeResult);
 
     //Step 2 - Rolling Gun Guild
     this.gunGuildRoll = this._Roll(8);
     if (this.gunTypeRoll < 7) {
       this.gunGuild = this.getGuild(this.gunTypeRoll, this.gunGuildRoll) as GuildTypes;
-      this.gunType = gunTypeResults[this.gunTypeRoll-1] as GunTypes;
+      this.gunType = GUN_TYPE_RESULTS[this.gunTypeRoll-1] as GunTypes;
       console.log('Rolling Gun Guild', this.gunGuildRoll, this.gunGuild);
     } else if (this.gunTypeRoll === 7) {
       if (this.gunGuildRoll === 8) {
@@ -124,7 +114,7 @@ export class AppComponent implements OnInit {
       } else {
         this.gunGuild = this.getGuild(this.gunTypeRoll, this.gunGuildRoll) as GuildTypes;
         this.gunTypeRoll = [1, 3, 1, 2, 3, 4, 5, 6][this.gunGuildRoll-1];
-        this.gunType = gunTypeResults[this.gunTypeRoll-1] as GunTypes;
+        this.gunType = GUN_TYPE_RESULTS[this.gunTypeRoll-1] as GunTypes;
       }
       console.log('You rolled a 7', this.gunType, this.gunTypeRoll, this.gunGuild, this.gunGuildRoll);
     } else {
