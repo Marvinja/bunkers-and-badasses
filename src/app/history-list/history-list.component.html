@@ -1,0 +1,23 @@
+<p>history-list works!</p>
+<div class="bnb-history-list--container">
+    <div class="bnb-history-list--item">
+        <p><b>Level</b></p>
+        <p><b>Prefix</b></p>
+        <p><b>Name</b></p>
+        <p><b>Rarity</b></p>
+        <p><b>Type</b></p>
+        <p><b>Guild</b></p>
+        <p><b>Element</b></p>
+    </div>
+@for(gun of data; track $index) {
+    <div class="bnb-history-list--item">
+        <p>{{ gun.level }}</p>
+        <p>{{ gun.prefix }}</p>
+        <p>{{ convertElement(gun.element) }} {{ gun.prefix }} {{ gun.guild }} {{ gun.type }}</p>
+        <p>{{ gun.rarity }}</p>
+        <p>{{ gun.type }}</p>
+        <p>{{ gun.guild }}</p>
+        <p>{{ gun.element }}</p>
+    </div>
+}
+</div>

@@ -1,0 +1,28 @@
+:host {
+    .bnb-history-list {
+
+        &--container {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(100px, max-content)) 1fr repeat(4, minmax(100px, max-content));
+        }
+        
+        &--item {
+            gap: 1rem;
+            display: grid;
+            justify-items: center;
+            align-items: center;
+            grid-template-columns: subgrid;
+            grid-column: 1 / 8;
+            p {
+                margin: 0;
+
+                &:nth-child(3) {
+                    justify-self: flex-start;
+                }
+            }
+            &:nth-child(even) {
+                background: #f2f2f2;
+            }
+        }
+    }
+}
