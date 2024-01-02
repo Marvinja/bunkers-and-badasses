@@ -13,15 +13,34 @@
             align-items: center;
             grid-template-columns: subgrid;
             grid-column: 1 / 8;
+            margin-bottom: 0.5rem;
+            border: 2px solid transparent;
+            border-radius: 0.5rem;
             p {
-                margin: 0;
-
+                margin: 1rem;
                 &:nth-child(3) {
                     justify-self: flex-start;
                 }
             }
-            &:nth-child(even) {
-                background: #f2f2f2;
+            
+            &-common {
+                border-color: #e0e0e0;
+            }
+            &-uncommon {
+                border-color: rgb(0, 172, 0);
+                color: rgb(0, 172, 0);
+            }
+            &-rare {
+                border-color: rgb(8, 81, 216);
+                color: rgb(8, 81, 216);
+            }
+            &-epic {
+                border-color: rgb(155, 2, 194);
+                color: rgb(155, 2, 194);
+            }
+            &-legendary {
+                border-color: rgb(255, 166, 0);
+                color: rgb(255, 166, 0);
             }
         }
     }

@@ -4,7 +4,7 @@ import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/rou
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GUN_TYPE_RESULTS, ELEMENTAL_TABLE, GUILD_BONUSES, GUN_RARITIES, GUN_RARTIY_TABLE, GUN_TABLE, PREFIXES, RED_PREFIXES } from './tables';
 import { GunCardComponent } from './gun-card/gun-card.component';
-import { ElementTypes, GuildTypes, GunTypes, PrefixTypes, RarityTypes, RedPrefixTypes } from './types';
+import { ElementTypes, GuildTypes, GunCard, GunTypes, PrefixTypes, RarityTypes, RedPrefixTypes } from './types';
 import { HistoryListComponent } from './history-list/history-list.component';
 
 @Component({
@@ -32,6 +32,8 @@ export class AppComponent implements OnInit {
   ndef!: NDEFReader;
   controller!: AbortController;
   dialogState!: 'read' | 'write';
+
+  gunList: GunCard[] = [];
 
   private _gunType!: GunTypes;
   get gunType() {
@@ -73,6 +75,7 @@ export class AppComponent implements OnInit {
     this._gunPrefix = prefix;
   }
 
+  @ViewChild('level') level!: ElementRef<HTMLInputElement>;
   @ViewChild('dialog') dialog!: ElementRef<HTMLDialogElement>;
   @ViewChild('log') log!: ElementRef<HTMLElement>;
   @ViewChild('loadedGun') loadedGun!: ElementRef<HTMLElement>;
@@ -152,6 +155,18 @@ export class AppComponent implements OnInit {
     //Step 7 - Prefixes
     const hasPrefixRoll = this._Roll(100);
     this.getPrefix(hasPrefixRoll);
+
+    //Add to list of guns generated
+    if (this.gunTypeRoll < 7) {
+      this.gunList.push({
+        level: !!this.level ? parseInt(this.level.nativeElement.value) : 1,
+        type: this.gunType,
+        guild: this.gunGuild,
+        rarity: this.gunRarity,
+        element: this.gunElement,
+        prefix: this.gunPrefix,
+      })
+    }
   }
   
   ngOnInit(): void {
@@ -183,6 +198,14 @@ export class AppComponent implements OnInit {
             this.consoleLog(`Gun loaded: ${this.gunType} ${this.gunGuild} ${this.gunRarity} ${this.gunElement} ${this.gunPrefix}`);
           }
           this._cdf.detectChanges();
+          this.gunList.push({
+            level: !!this.level ? parseInt(this.level.nativeElement.value) : 1,
+            type: this.gunType,
+            guild: this.gunGuild,
+            rarity: this.gunRarity,
+            element: this.gunElement,
+            prefix: this.gunPrefix,
+          })
           this.loadedGun.nativeElement.innerHTML = `Gun loaded: ${this.gunType} ${this.gunGuild} ${this.gunRarity} ${this.gunElement} ${this.gunPrefix}`;
         }
       } catch (error: any) {
@@ -286,7 +309,15 @@ export class AppComponent implements OnInit {
     } else { 
       this.gunElement = 'N/A'
     }
-
+    
+    this.gunList.push({
+      level: !!this.level ? parseInt(this.level.nativeElement.value) : 1,
+      type: this.gunType,
+      guild: this.gunGuild,
+      rarity: this.gunRarity,
+      element: this.gunElement,
+      prefix: this.gunPrefix,
+    })
     console.log(`You chose a ${this.gunGuild} ${this.gunType}`);
   }
 
