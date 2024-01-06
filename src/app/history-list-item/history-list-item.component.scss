@@ -1,0 +1,63 @@
+:host {
+    max-width: 300px;
+    display: block;
+    .bnb-history-list-item {
+        display: grid;
+        justify-items: center;
+        justify-content: center;
+        align-items: center;
+        grid-template-areas: "level level level" "name name name" "image image image" "guild element type";
+        grid-template-columns: 1fr 1fr 1fr;
+        margin-bottom: 0.5rem;
+        border: 2px solid transparent;
+        border-radius: 0.5rem;
+        transition: 0.1s transform ease-in;
+
+        &:hover {
+            transform: translateY(-5px);
+        }
+        
+        p {
+            margin-block:0;
+            text-align: center;
+            
+            img {
+                width: 100%;
+                aspect-ratio: 16 / 9;
+            }
+        }
+
+        @mixin boxShadow($color) {
+            box-shadow: 0 1px 1px $color, 
+            0 2px 2px $color, 
+            0 4px 4px $color, 
+            0 8px 8px $color,
+            0 16px 16px $color;
+
+            &:hover {
+                box-shadow: 0 2px 1px $color, 
+                0 4px 2px $color, 
+                0 8px 4px $color, 
+                0 16px 8px $color,
+                0 24px 16px $color;
+            }
+        }
+        
+        &--common {
+            @include boxShadow(rgba(224, 224, 224, 0.12));
+        }
+        &--uncommon {
+            @include boxShadow(rgba(0, 172, 0, 0.12));
+        }
+        &--rare {
+            @include boxShadow(rgba(8, 81, 216, 0.12));
+        }
+        &--epic {
+            @include boxShadow(rgba(155, 2, 194, 0.12));
+        }
+        &--legendary {
+            @include boxShadow(rgba(255, 166, 0, 0.12));
+        }
+    }
+}
+

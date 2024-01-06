@@ -1,0 +1,8 @@
+<div class="bnb-history-list-item bnb-history-list-item--{{gun.rarity}}">
+    <p [style.grid-area]="'level'">{{ gun.level }}</p>
+    <p [style.grid-area]="'name'">{{ convertElement(gun.element) }} {{ gun.prefix }} {{ gun.guild }} {{ gun.type }}</p>
+    <p [style.grid-area]="'image'"><img src="https://placehold.co/1280x720?text={{ gun.element ? convertElement(gun.element) : null }}+{{ gun.prefix }}+{{ gun.guild }}+{{ gun.type }}" alt=""></p>
+    <p [style.grid-area]="'type'">{{ gun.type }}</p>
+    <p [style.grid-area]="'guild'">{{ gun.guild }}</p>
+    <p [style.grid-area]="'element'" *ngIf="gun.element !== 'N/A'">{{ gun.element }}</p>
+</div>
