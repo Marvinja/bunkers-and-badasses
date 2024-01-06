@@ -2,8 +2,15 @@
     .bnb-history-list {
 
         &--container {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(100px, max-content)) 1fr repeat(4, minmax(100px, max-content));
+            &-list {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(100px, max-content)) 1fr repeat(4, minmax(100px, max-content)) max-content;
+            }
+            
+            &-cards {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
         
         &--item {
@@ -12,7 +19,7 @@
             justify-items: center;
             align-items: center;
             grid-template-columns: subgrid;
-            grid-column: 1 / 8;
+            grid-column: 1 / 9;
             margin-bottom: 0.5rem;
             border: 2px solid transparent;
             border-radius: 0.5rem;
@@ -23,6 +30,10 @@
                 }
             }
             
+            button {
+                margin-inline: 1rem
+            }
+
             &-common {
                 border-color: #e0e0e0;
             }
@@ -43,5 +54,7 @@
                 color: rgb(255, 166, 0);
             }
         }
+        
     }
+    
 }

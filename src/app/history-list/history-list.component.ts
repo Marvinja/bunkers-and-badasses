@@ -1,35 +1,28 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { ElementTypes, GuildTypes, GunCard, GunTypes, PrefixTypes, RarityTypes, RedPrefixTypes } from '../types';
-
-export const gun_data: GunCard[] = [
-  {
-    level: 1,
-    prefix: "Aback",
-    rarity: "legendary",
-    type: "Shotgun",
-    guild: "Malefactor",
-    element: "Shock + Corrosive",
-  },
-  {
-    level: 1,
-    prefix: "Aberrant",
-    rarity: "rare",
-    type: "Shotgun",
-    guild: "Malefactor",
-    element: "Explosive + Cryo",
-  },
-]
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { GunCard } from '../types';
+import { HistoryListItemComponent } from '../history-list-item/history-list-item.component';
 
 @Component({
   selector: 'bnb-history-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HistoryListItemComponent],
   templateUrl: './history-list.component.html',
   styleUrl: './history-list.component.scss'
 })
 export class HistoryListComponent {
-  @Input() data: GunCard[] = gun_data;
+  @Input() data!: GunCard[];
+
+  @Output() loadGun: EventEmitter<GunCard> = new EventEmitter<GunCard>();
+
+  removeItemFromHistory(item: string) {
+    this.data.splice(parseInt(item), 1);
+  }
+
+  handleLoadGun(item: string) {
+    console.log(item);
+    this.loadGun.emit(this.data[parseInt(item)]);
+  }
 
   convertElement(element: string) {
     switch(element) {

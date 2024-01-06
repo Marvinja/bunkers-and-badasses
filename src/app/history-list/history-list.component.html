@@ -1,4 +1,4 @@
-<div class="bnb-history-list--container">
+<div class="bnb-history-list--container-list">
     <div class="bnb-history-list--item">
         <p><b>Level</b></p>
         <p><b>Prefix</b></p>
@@ -8,8 +8,8 @@
         <p><b>Guild</b></p>
         <p><b>Element</b></p>
     </div>
-@for(gun of data; track $index) {
-    <div class="bnb-history-list--item bnb-history-list--item-{{gun.rarity}}">
+@for(gun of data;  track i; let i = $index) {
+    <div class="bnb-history-list--item bnb-history-list--item-{{gun.rarity}}" [id]="i" #item>
         <p>{{ gun.level }}</p>
         <p>{{ gun.prefix }}</p>
         <p>{{ convertElement(gun.element) }} {{ gun.prefix }} {{ gun.guild }} {{ gun.type }}</p>
@@ -17,6 +17,10 @@
         <p>{{ gun.type }}</p>
         <p>{{ gun.guild }}</p>
         <p>{{ gun.element }}</p>
+        <div>
+            <button (click)="handleLoadGun(item.id)"><i class="fa-solid fa-upload"></i></button>
+            <button (click)="removeItemFromHistory(item.id)"><i class="fa-solid fa-xmark"></i></button>
+        </div>
     </div>
 }
 </div>

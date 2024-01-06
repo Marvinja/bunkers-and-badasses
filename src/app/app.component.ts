@@ -321,6 +321,17 @@ export class AppComponent implements OnInit {
     console.log(`You chose a ${this.gunGuild} ${this.gunType}`);
   }
 
+  loadGun(event: GunCard) {
+    const { level, type, guild, rarity, element, prefix } = event;
+    this.level.nativeElement.value = level.toString();
+    this.gunType = type;
+    this.gunGuild = guild;
+    this.gunRarity = rarity;
+    this.gunElement = element;
+    this.gunPrefix = prefix;
+    console.log(event);
+  }
+
   convertToRarityType(rarity:string):RarityTypes {
     switch(rarity) {
       case 'Common': 
