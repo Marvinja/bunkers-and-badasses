@@ -24,8 +24,10 @@
       "dom"
     ],
     "typeRoots": [
-      "src/web-nfc"
-    ]
+      "src/web-nfc",
+      "node_modules/@types"
+    ],
+    "types": ["jest"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
