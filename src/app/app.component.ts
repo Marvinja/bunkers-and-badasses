@@ -191,12 +191,13 @@ export class AppComponent implements OnInit {
             this.consoleLog("MIME type: " + record.mediaType);
             this.consoleLog("data: " + decoder.decode(record.data));
             let gunData = decoder.decode(record.data).split(',');
-            this.gunType = gunData[0] as GunTypes;
-            this.gunGuild = gunData[1] as GuildTypes;
-            this.gunRarity = gunData[2] as RarityTypes;
-            this.gunElement = gunData[3] as ElementTypes;
-            this.gunPrefix = gunData[4] === 'undefined' ? undefined : gunData[4] as PrefixTypes | RedPrefixTypes;
-            this.consoleLog(`Gun loaded: ${this.gunType} ${this.gunGuild} ${this.gunRarity} ${this.gunElement} ${this.gunPrefix}`);
+            this.level.nativeElement.value = gunData[0];
+            this.gunType = gunData[1] as GunTypes;
+            this.gunGuild = gunData[2] as GuildTypes;
+            this.gunRarity = gunData[3] as RarityTypes;
+            this.gunElement = gunData[4] as ElementTypes;
+            this.gunPrefix = gunData[5] === 'undefined' ? undefined : gunData[4] as PrefixTypes | RedPrefixTypes;
+            this.consoleLog(`Gun loaded: ${this.level} ${this.gunType} ${this.gunGuild} ${this.gunRarity} ${this.gunElement} ${this.gunPrefix}`);
           }
           this._cdf.detectChanges();
           this.gunList.push({
@@ -207,7 +208,7 @@ export class AppComponent implements OnInit {
             element: this.gunElement,
             prefix: this.gunPrefix,
           })
-          this.loadedGun.nativeElement.innerHTML = `Gun loaded: ${this.gunType} ${this.gunGuild} ${this.gunRarity} ${this.gunElement} ${this.gunPrefix}`;
+          this.loadedGun.nativeElement.innerHTML = `Gun loaded: ${this.level} ${this.gunType} ${this.gunGuild} ${this.gunRarity} ${this.gunElement} ${this.gunPrefix}`;
         }
       } catch (error: any) {
         if (error.name === 'TimeoutError') { 
@@ -231,7 +232,7 @@ export class AppComponent implements OnInit {
       const signal = this.controller.signal;
       try {
         await ndef.write({ records: [
-          { recordType: 'text', data: `${this.gunType},${this.gunGuild},${this.gunRarity},${this.gunElement},${this.gunPrefix}` as string },
+          { recordType: 'text', data: `${this.level.nativeElement.value},${this.gunType},${this.gunGuild},${this.gunRarity},${this.gunElement},${this.gunPrefix}` as string },
         ]}, { signal }).then(() => {
           this.loadedGun.nativeElement.innerHTML = `Saved gun successfully!: ${this.gunRarity} ${this.gunElement !== 'N/A' ? this.gunElement: ''} ${!!this.gunPrefix} ${this.gunGuild} ${this.gunType}`
         });
