@@ -208,7 +208,7 @@ export class AppComponent implements OnInit {
             element: this.gunElement,
             prefix: this.gunPrefix,
           })
-          this.loadedGun.nativeElement.innerHTML = `Gun loaded: ${this.level} ${this.gunType} ${this.gunGuild} ${this.gunRarity} ${this.gunElement} ${this.gunPrefix}`;
+          this.loadedGun.nativeElement.innerHTML = `Gun loaded: ${this.level.nativeElement.value} ${this.gunType} ${this.gunGuild} ${this.gunRarity} ${this.gunElement} ${this.gunPrefix}`;
         }
       } catch (error: any) {
         if (error.name === 'TimeoutError') { 
