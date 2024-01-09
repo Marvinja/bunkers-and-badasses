@@ -183,6 +183,7 @@ export class AppComponent implements OnInit {
       try {
         await this.ndef.scan({signal});
         this.ndef.onreading = (event: NDEFReadingEvent) => {
+          this.loadedGun.nativeElement.innerHTML = '';
           this.consoleLog("Event: " + event);
           const decoder = new TextDecoder();
           for (const record of event.message.records) {
@@ -230,7 +231,9 @@ export class AppComponent implements OnInit {
       try {
         await ndef.write({ records: [
           { recordType: 'text', data: `${this.gunType},${this.gunGuild},${this.gunRarity},${this.gunElement},${this.gunPrefix}` as string },
-        ]}, { signal });
+        ]}, { signal }).then(() => {
+          this.loadedGun.nativeElement.innerHTML = `Saved gun successfully!: ${this.gunRarity} ${this.gunElement !== 'N/A' ? this.gunElement: ''} ${!!this.gunPrefix} ${this.gunGuild} ${this.gunType}`
+        });
         this.consoleLog(`${this.gunRarity} ${this.gunElement !== 'N/A' ? this.gunElement: ''} ${!!this.gunPrefix} ${this.gunGuild} ${this.gunType}`);
       } catch(error) {
         this.consoleLog(error);
