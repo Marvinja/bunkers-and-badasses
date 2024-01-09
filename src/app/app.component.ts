@@ -224,6 +224,7 @@ export class AppComponent implements OnInit {
   async writeTag() {
     this.dialogState = 'write';
     this.dialog.nativeElement.showModal();
+    this.loadedGun.nativeElement.innerHTML = "";
     if ("NDEFReader" in window) {
       const ndef = new NDEFReader();
       this.controller = new AbortController();
