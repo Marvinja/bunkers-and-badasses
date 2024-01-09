@@ -21,6 +21,7 @@ export class HistoryListComponent {
 
   handleLoadGun(item: string) {
     this.loadGun.emit(this.data[parseInt(item)]);
+    document.getElementById('gunCard')?.scrollIntoView();
   }
 
   convertElement(element: string) {

@@ -1,5 +1,5 @@
 <div class="bnb-history-list--container-list">
-    <div class="bnb-history-list--item">
+    <div class="bnb-history-list--heading">
         <p><b>Level</b></p>
         <p><b>Prefix</b></p>
         <p><b>Name</b></p>
@@ -8,19 +8,32 @@
         <p><b>Guild</b></p>
         <p><b>Element</b></p>
     </div>
-@for(gun of data;  track i; let i = $index) {
-    <div class="bnb-history-list--item bnb-history-list--item-{{gun.rarity}}" [id]="i" #item>
-        <p>{{ gun.level }}</p>
-        <p>{{ gun.prefix }}</p>
-        <p>{{ convertElement(gun.element) }} {{ gun.prefix }} {{ gun.guild }} {{ gun.type }}</p>
-        <p>{{ gun.rarity }}</p>
-        <p>{{ gun.type }}</p>
-        <p>{{ gun.guild }}</p>
-        <p>{{ gun.element }}</p>
-        <div>
-            <button (click)="handleLoadGun(item.id)"><i class="fa-solid fa-upload"></i></button>
-            <button (click)="removeItemFromHistory(item.id)"><i class="fa-solid fa-xmark"></i></button>
+    @for(gun of data;  track i; let i = $index) {
+        <div class="bnb-history-list--item bnb-history-list--item-{{gun.rarity}}" [id]="i" #item>
+            <p>{{ gun.level }}</p>
+            <p>{{ gun.prefix }}</p>
+            <p>{{ convertElement(gun.element) }} {{ gun.prefix }} {{ gun.guild }} {{ gun.type }}</p>
+            <p>{{ gun.rarity }}</p>
+            <p>{{ gun.type }}</p>
+            <p>{{ gun.guild }}</p>
+            <p>{{ gun.element }}</p>
+            <div>
+                <button (click)="handleLoadGun(item.id)"><i class="fa-solid fa-upload"></i></button>
+                <button (click)="removeItemFromHistory(item.id)"><i class="fa-solid fa-xmark"></i></button>
+            </div>
         </div>
-    </div>
-}
+        <div class="bnb-history-list--card {{gun.rarity}}">
+            <div class="bnb-history-list--card-actions" [style.grid-area]="'actions'">
+                <button (click)="handleLoadGun(item.id)">Load gun</button>
+                <button (click)="removeItemFromHistory(item.id)">Remove gun</button>
+            </div>
+            <div class="bnb-history-list--card-details bnb-history-list--card-details-{{gun.rarity}}" [style.grid-area]="'details'">
+                <p class="level" [style.grid-area]="'level'">level: {{ gun.level }}</p>
+                <h3 class="name" [style.grid-area]="'name'">{{ convertElement(gun.element) }} {{ gun.prefix }} {{ gun.guild }} {{ gun.type }}</h3>
+                <p class="guild" [style.grid-area]="'guild'">{{ gun.guild }}</p>
+                <p class="element" [style.grid-area]="'element'">{{ gun.element }}</p>
+                <p class="type" [style.grid-area]="'type'">{{ gun.type }}</p>
+            </div>
+        </div>
+    }
 </div>

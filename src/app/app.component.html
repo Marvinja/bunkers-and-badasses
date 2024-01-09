@@ -48,9 +48,11 @@
 
 </main>
 
-<bnb-gun-card [level]="getLevel(level.value)" [type]="gunType" [guild]="gunGuild" [rarity]="gunRarity" [element]="gunElement" [prefix]="gunPrefix"/>
+<bnb-gun-card [level]="getLevel(level.value)" [type]="gunType" [guild]="gunGuild" [rarity]="gunRarity" [element]="gunElement" [prefix]="gunPrefix" id="gunCard"/>
+<hr>
+<h2>History</h2>
 <bnb-history-list [data]="gunList" (loadGun)="loadGun($event)"/>
-
+<hr>
 <h4>Log</h4>
 <button (click)="clearLog()">Clear Logs</button>
 <p id="log" #log></p>
