@@ -176,6 +176,7 @@ export class AppComponent implements OnInit {
   async readTag() {
     this.dialogState = 'read';
     this.dialog.nativeElement.showModal();
+    this.loadedGun.nativeElement.innerHTML = '';
     if ("NDEFReader" in window) {
       this.ndef = new NDEFReader();
       this.controller = new AbortController();
@@ -183,7 +184,6 @@ export class AppComponent implements OnInit {
       try {
         await this.ndef.scan({signal});
         this.ndef.onreading = (event: NDEFReadingEvent) => {
-          this.loadedGun.nativeElement.innerHTML = '';
           this.consoleLog("Event: " + event);
           const decoder = new TextDecoder();
           for (const record of event.message.records) {
