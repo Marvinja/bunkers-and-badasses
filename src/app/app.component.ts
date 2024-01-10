@@ -196,7 +196,7 @@ export class AppComponent implements OnInit {
             this.gunGuild = gunData[2] as GuildTypes;
             this.gunRarity = gunData[3] as RarityTypes;
             this.gunElement = gunData[4] as ElementTypes;
-            this.gunPrefix = gunData[5] === 'undefined' ? undefined : gunData[4] as PrefixTypes | RedPrefixTypes;
+            this.gunPrefix = gunData[5] === 'undefined' ? undefined : gunData[5] as PrefixTypes | RedPrefixTypes;
             this.consoleLog(`Gun loaded: ${this.level} ${this.gunType} ${this.gunGuild} ${this.gunRarity} ${this.gunElement} ${this.gunPrefix}`);
           }
           this._cdf.detectChanges();
@@ -208,14 +208,10 @@ export class AppComponent implements OnInit {
             element: this.gunElement,
             prefix: this.gunPrefix,
           })
-          this.loadedGun.nativeElement.innerHTML = `Gun loaded: ${this.level.nativeElement.value} ${this.gunType} ${this.gunGuild} ${this.gunRarity} ${this.gunElement} ${this.gunPrefix}`;
+          this.loadedGun.nativeElement.innerHTML = `Gun loaded: Level ${this.level.nativeElement.value} ${this.gunType} ${this.gunGuild} ${this.gunRarity} ${this.gunElement} ${this.gunPrefix}`;
         }
       } catch (error: any) {
-        if (error.name === 'TimeoutError') { 
-          this.consoleLog('Timeout: You took longer than 10 seconds to scan')
-        } else {
-          this.consoleLog('Error: ' + error);
-        }
+        this.consoleLog('Error: ' + error);
       }
     } else {
       this.consoleLog("Web NFC is not supported.");
@@ -236,7 +232,7 @@ export class AppComponent implements OnInit {
         ]}, { signal }).then(() => {
           this.loadedGun.nativeElement.innerHTML = `Saved gun successfully!: ${this.gunRarity} ${this.gunElement !== 'N/A' ? this.gunElement: ''} ${!!this.gunPrefix} ${this.gunGuild} ${this.gunType}`
         });
-        this.consoleLog(`${this.gunRarity} ${this.gunElement !== 'N/A' ? this.gunElement: ''} ${!!this.gunPrefix} ${this.gunGuild} ${this.gunType}`);
+        this.consoleLog(`Level ${this.level.nativeElement.value} ${this.gunRarity} ${this.gunElement !== 'N/A' ? this.gunElement: ''} ${!!this.gunPrefix} ${this.gunGuild} ${this.gunType}`);
       } catch(error) {
         this.consoleLog(error);
       }
