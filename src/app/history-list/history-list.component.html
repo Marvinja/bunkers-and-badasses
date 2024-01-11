@@ -9,7 +9,7 @@
         <p><b>Element</b></p>
     </div>
     @for(gun of data.slice().reverse();  track i; let i = $index) {
-        <div class="bnb-history-list--item bnb-history-list--item-{{gun.rarity}}" [id]="i" #item>
+        <div class="bnb-history-list--item bnb-history-list--item-{{gun.rarity | lowercase }}" [id]="i" #item>
             <p>{{ gun.level }}</p>
             <p>{{ gun.prefix }}</p>
             <p>{{ convertElement(gun.element) }} {{ gun.prefix }} {{ gun.guild }} {{ gun.type }}</p>
@@ -27,7 +27,7 @@
                 <button (click)="handleLoadGun(item.id)">Load gun</button>
                 <button (click)="removeItemFromHistory(item.id)">Remove gun</button>
             </div>
-            <div class="bnb-history-list--card-details bnb-history-list--card-details-{{gun.rarity}}" [style.grid-area]="'details'">
+            <div class="bnb-history-list--card-details bnb-history-list--card-details-{{gun.rarity | lowercase}}" [style.grid-area]="'details'">
                 <p class="level" [style.grid-area]="'level'">level: {{ gun.level }}</p>
                 <h3 class="name" [style.grid-area]="'name'">{{ convertElement(gun.element) }} {{ gun.prefix }} {{ gun.guild }} {{ gun.type }}</h3>
                 <p class="guild" [style.grid-area]="'guild'">{{ gun.guild }}</p>

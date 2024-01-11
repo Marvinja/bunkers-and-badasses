@@ -35,6 +35,8 @@ export class AppComponent implements OnInit {
 
   gunList: GunCard[] = [];
 
+  gun!: GunCard;
+
   private _gunType!: GunTypes;
   get gunType() {
     return this._gunType;
@@ -134,13 +136,13 @@ export class AppComponent implements OnInit {
     this.gunElementRoll = this._Roll(100);
     if (this.gunGuild === "Malefactor") {
       switch(this.gunRarity) {
-        case 'rare':
+        case 'Rare':
           this.gunElementRoll += 10;
           break;
-        case 'epic': 
+        case 'Epic': 
           this.gunElementRoll += 15;
           break;
-        case 'legendary': 
+        case 'Legendary': 
           this.gunElementRoll += 20;
           break;
       }
@@ -286,9 +288,9 @@ export class AppComponent implements OnInit {
 
   getPrefix(number: number) {
     this.gunPrefixRoll = this._Roll(Object.keys(PREFIXES).length);
-    if ((this.gunRarity === 'rare' && number > 75) || (this.gunRarity === 'epic' && number > 50) || (number > 95)) {
+    if ((this.gunRarity === 'Rare' && number > 75) || (this.gunRarity === 'Epic' && number > 50) || (number > 95)) {
       this.gunPrefix = Object.keys(PREFIXES)[this.gunPrefixRoll] as PrefixTypes;
-    } else if (this.gunRarity === 'legendary') {
+    } else if (this.gunRarity === 'Legendary') {
       this.gunPrefix = Object.keys(RED_PREFIXES)[this.gunPrefixRoll] as RedPrefixTypes;
     } else {
       this.gunPrefix = undefined;
@@ -335,28 +337,18 @@ export class AppComponent implements OnInit {
 
   convertToRarityType(rarity:string):RarityTypes {
     switch(rarity) {
-      case 'Common': 
-        return "common";
       case 'Common (Elemental Roll)': 
-        return "common";
-      case 'Uncommon': 
-        return "uncommon";
+        return "Common";
       case 'Uncommon (Elemental Roll)': 
-        return "uncommon";
-      case 'Rare': 
-        return "rare";
+        return "Uncommon";
       case 'Rare (Element Roll)': 
-        return "rare";
-      case 'Epic': 
-        return "epic";
+        return "Rare";
       case 'Epic (Element Roll)': 
-        return "epic";
-      case 'Legendary': 
-        return "legendary";
+        return "Epic";
       case 'Legendary (Element Roll)': 
-        return "legendary";
+        return "Legendary";
       default:
-        return "common";
+        return rarity as RarityTypes;
     }
   }
 }

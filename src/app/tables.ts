@@ -357,81 +357,81 @@ export const GUN_TYPE_STATS = {
 
 export const GUILD_BONUSES = {
     "Alas!": {
-        common: "+1 DMG Mod",
-        uncommon: "+2 DMG Mod",
-        rare: "+3 DMG Mod",
-        epic: "+3 DMG Mod",
-        legendary: "+4 DMG Mod",
+        Common: "+1 DMG Mod",
+        Uncommon: "+2 DMG Mod",
+        Rare: "+3 DMG Mod",
+        Epic: "+3 DMG Mod",
+        Legendary: "+4 DMG Mod",
         elemental: 0,
     },
     "Skuldugger": {
-        common: "+2 DMG Mod, Overheat 1d4",
-        uncommon: "+3 DMG Mod, Overheat 1d6",
-        rare: "+4 DMG Mod, Overheat 1d8",
-        epic: "+5 DMG Mod, Overheat 1d10",
-        legendary: "+6 DMG Mod, Overheat 1d12",
+        Common: "+2 DMG Mod, Overheat 1d4",
+        Uncommon: "+3 DMG Mod, Overheat 1d6",
+        Rare: "+4 DMG Mod, Overheat 1d8",
+        Epic: "+5 DMG Mod, Overheat 1d10",
+        Legendary: "+6 DMG Mod, Overheat 1d12",
         elemental: 1,
     },
     "Dahlia": {
-        common: "Burst: +1 Hit",
-        uncommon: "Burst: +1 Hit, +1 ACC Mod",
-        rare: "Burst: +1 Hit, +2 ACC Mod",
-        epic: "Burst: +1 Hit, +3 ACC Mod",
-        legendary: "Burst: +1 Hit, +4 ACC Mod",
+        Common: "Burst: +1 Hit",
+        Uncommon: "Burst: +1 Hit, +1 ACC Mod",
+        Rare: "Burst: +1 Hit, +2 ACC Mod",
+        Epic: "Burst: +1 Hit, +3 ACC Mod",
+        Legendary: "Burst: +1 Hit, +4 ACC Mod",
         elemental: 1,
     },
     "Blackpowder": {
-        common: "+2 ACC Mod: +2 Crit Damage",
-        uncommon: "+2 ACC Mod: +3 Crit Damage",
-        rare: "+2 ACC Mod: +4 Crit Damage",
-        epic: "+2 ACC Mod: +5 Crit Damage",
-        legendary: "+2 ACC Mod: +6 Crit Damage",
+        Common: "+2 ACC Mod: +2 Crit Damage",
+        Uncommon: "+2 ACC Mod: +3 Crit Damage",
+        Rare: "+2 ACC Mod: +4 Crit Damage",
+        Epic: "+2 ACC Mod: +5 Crit Damage",
+        Legendary: "+2 ACC Mod: +6 Crit Damage",
         elemental: 0,
     },
     "Malefactor": {
-        common: "Elemental Roll, -2 DMG Mod",
-        uncommon: "Elemental Roll, -2 DMG Mod",
-        rare: "+10% Elemental Roll",
-        epic: "+15% Elemental Roll",
-        legendary: "+20% Elemental Roll",
+        Common: "Elemental Roll, -2 DMG Mod",
+        Uncommon: "Elemental Roll, -2 DMG Mod",
+        Rare: "+10% Elemental Roll",
+        Epic: "+15% Elemental Roll",
+        Legendary: "+20% Elemental Roll",
         elemental: 2,
     },
     "Hyperius": {
-        common: "+1 ACC Mod, -2 DMG Mod",
-        uncommon: "+1 ACC Mod, -2 DMG Mod",
-        rare: "+1 ACC Mod, -2 DMG Mod",
-        epic: "+1 ACC Mod, -2 DMG Mod",
-        legendary: "+1 ACC Mod, -2 DMG Mod",
+        Common: "+1 ACC Mod, -2 DMG Mod",
+        Uncommon: "+1 ACC Mod, -2 DMG Mod",
+        Rare: "+1 ACC Mod, -2 DMG Mod",
+        Epic: "+1 ACC Mod, -2 DMG Mod",
+        Legendary: "+1 ACC Mod, -2 DMG Mod",
         elemental: 1,
     },
     "Feriore": {
-        common: "Swap/Reload: 1d4 Grenade Damage, -3 ACC Mod",
-        uncommon: "Swap/Reload: 1d6 Grenade Damage, -3 ACC Mod",
-        rare: "Swap/Reload: 1d8 Grenade Damage, -2 ACC Mod",
-        epic: "Swap/Reload: 1d10 Grenade Damage, -2 ACC Mod",
-        legendary: "Swap/Reload: 1d12 Grenade Damage, -1 ACC Mod",
+        Common: "Swap/Reload: 1d4 Grenade Damage, -3 ACC Mod",
+        Uncommon: "Swap/Reload: 1d6 Grenade Damage, -3 ACC Mod",
+        Rare: "Swap/Reload: 1d8 Grenade Damage, -2 ACC Mod",
+        Epic: "Swap/Reload: 1d10 Grenade Damage, -2 ACC Mod",
+        Legendary: "Swap/Reload: 1d12 Grenade Damage, -1 ACC Mod",
         elemental: 1,
     },
     "Torgue": {
-        common: "Splash, -4 ACC Mod",
-        uncommon: "Splash, -3 ACC Mod",
-        rare: "Splash, -2 ACC Mod",
-        epic: "Splash, -1 ACC Mod",
-        legendary: "Splash",
+        Common: "Splash, -4 ACC Mod",
+        Uncommon: "Splash, -3 ACC Mod",
+        Rare: "Splash, -2 ACC Mod",
+        Epic: "Splash, -1 ACC Mod",
+        Legendary: "Splash",
         elemental: 1,
     },
     "Stoker": {
-        common: "Extra Attack, -3 ACC Mod",
-        uncommon: "Extra Attack, -2 ACC Mod",
-        rare: "Extra Attack, -1 ACC Mod",
-        epic: "Extra Attack",
-        legendary: "Extra Attack, Extra Movement",
+        Common: "Extra Attack, -3 ACC Mod",
+        Uncommon: "Extra Attack, -2 ACC Mod",
+        Rare: "Extra Attack, -1 ACC Mod",
+        Epic: "Extra Attack",
+        Legendary: "Extra Attack, Extra Movement",
         elemental: 1,
     },
 }
 
 export const ELEMENTAL_TABLE = {
-    common: [
+    Common: [
         "N/A",
         "N/A",
         "N/A",
@@ -455,7 +455,7 @@ export const ELEMENTAL_TABLE = {
         "Incendiary",
         "Cryo",
     ],
-    uncommon: [
+    Uncommon: [
         "N/A",
         "N/A",
         "N/A",
@@ -479,7 +479,7 @@ export const ELEMENTAL_TABLE = {
         "Incendiary (+1d6)",
         "Cryo (+1d6)",
     ],
-    rare: [
+    Rare: [
         "N/A",
         "N/A",
         "N/A",
@@ -503,7 +503,7 @@ export const ELEMENTAL_TABLE = {
         "Incendiary (+2d6)",
         "Cryo (+2d6)",
     ],
-    epic: [
+    Epic: [
         "N/A",
         "Radiation",
         "Corrosive",
@@ -527,7 +527,7 @@ export const ELEMENTAL_TABLE = {
         "Shock + Corrosive",
         "Explosive + Cryo",
     ],
-    legendary: [
+    Legendary: [
         "N/A",
         "Radiation",
         "Corrosive",
@@ -656,7 +656,7 @@ export const PREFIXES = {
     "Zesty": "Enemies killed by this gun grant the wielder 1 Badass Token"
   }
   
-  export const RED_PREFIXES = {
+export const RED_PREFIXES = {
     "POP POP!": 'Deals Crit Damage twice',
     "I never freeze": 'Adds Cryo Element Type',
     "Toasty!": 'Adds Incendiary Element type',
@@ -707,4 +707,4 @@ export const PREFIXES = {
     "Richer and cleverer than everyone else!": 'Add 10 gold per Loot Pile when rolling for Enemy Drops',
     "METAL WILL DESTROY ALL EVIL!": 'Allies get +2 ACC Mod each turn you perform a Melee Attack',
     "Life is conundrum of esoterica": 'Gain 2 Badass Tokens for the first time you roll a Trauma each day',
-  }
+}

@@ -55,7 +55,7 @@ export class GunCardComponent {
   }
 
   get prefixDescription() {
-    if (this.rarity !== 'legendary') {
+    if (this.rarity !== 'Legendary') {
       this.prefix = this.prefix as PrefixTypes;
       if (!this.prefix) { return }
       return PREFIXES[this.prefix]
