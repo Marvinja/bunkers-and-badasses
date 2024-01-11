@@ -8,7 +8,7 @@
         <p><b>Guild</b></p>
         <p><b>Element</b></p>
     </div>
-    @for(gun of data;  track i; let i = $index) {
+    @for(gun of data.slice().reverse();  track i; let i = $index) {
         <div class="bnb-history-list--item bnb-history-list--item-{{gun.rarity}}" [id]="i" #item>
             <p>{{ gun.level }}</p>
             <p>{{ gun.prefix }}</p>
