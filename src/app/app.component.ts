@@ -284,6 +284,7 @@ export class AppComponent implements OnInit {
       this.controller.abort();
     }
     this.gunList.push({...this.currentGun});
+    this._cdf.detectChanges();
     this.dialog.nativeElement.close();
   }
 
