@@ -277,12 +277,14 @@ export class AppComponent implements OnInit {
   }
 
   onSave() {
+    this.hasScannedItem = false;
     if ("NDEFReader" in window) {
       this.hasScannedItem = false;
       this.loadedGun.nativeElement.innerHTML = '';
       this.controller.abort();
     }
-    this.loadedGun.nativeElement.innerHTML = '';
+    this.gunList.push({...this.currentGun});
+    this.dialog.nativeElement.close();
   }
 
   loadGun(event: GunCard) {
