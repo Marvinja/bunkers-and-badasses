@@ -330,9 +330,9 @@ export class AppComponent implements OnInit {
             this.currentGun.prefix = gunData[5] === 'undefined' ? undefined : gunData[5] as PrefixTypes | RedPrefixTypes;
             this.consoleLog(`Gun loaded: ${this.currentGun.level} ${this.currentGun.type} ${this.currentGun.guild} ${this.currentGun.rarity} ${this.currentGun.element} ${this.currentGun.prefix}`);
           }
-          this._cdf.detectChanges();
           this.hasScannedItem = true;
           this.loadedGun.nativeElement.innerHTML = `Gun loaded: Level ${this.currentGun.level} ${this.currentGun.type} ${this.currentGun.guild} ${this.currentGun.rarity} ${this.currentGun.element} ${this.currentGun.prefix}`;
+          this._cdf.detectChanges();
         }
       } catch (error: any) {
         this.consoleLog('Error: ' + error);
