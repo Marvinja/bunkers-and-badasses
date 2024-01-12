@@ -322,7 +322,7 @@ export class AppComponent implements OnInit {
             this.consoleLog(`Gun loaded: ${this.currentGun.level} ${this.currentGun.type} ${this.currentGun.guild} ${this.currentGun.rarity} ${this.currentGun.element} ${this.currentGun.prefix}`);
           }
           this._cdf.detectChanges();
-          this.gunList.push(this.currentGun)
+          this.gunList.push({...this.currentGun})
           this.loadedGun.nativeElement.innerHTML = `Gun loaded: Level ${this.currentGun.level} ${this.currentGun.type} ${this.currentGun.guild} ${this.currentGun.rarity} ${this.currentGun.element} ${this.currentGun.prefix}`;
         }
       } catch (error: any) {
