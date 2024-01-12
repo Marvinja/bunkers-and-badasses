@@ -303,13 +303,16 @@ export class AppComponent implements OnInit {
       this.controller = new AbortController();
       const signal = this.controller.signal;
       try {
-        await this.ndef.scan({signal});
+        await this.ndef.scan({signal}).then(() => {
+          this.consoleLog("An NFC Chip has been scanned. Adding Gun to the list")
+          this.gunList.push({...this.currentGun});
+        });
         this.ndef.onreading = (event: NDEFReadingEvent) => {
           this.consoleLog("Event: " + event);
           const decoder = new TextDecoder();
           for (const record of event.message.records) {
-            this.consoleLog("Record type: " + record.recordType);
-            this.consoleLog("MIME type: " + record.mediaType);
+            // this.consoleLog("Record type: " + record.recordType);
+            // this.consoleLog("MIME type: " + record.mediaType);
             this.consoleLog("data: " + decoder.decode(record.data));
             let gunData = decoder.decode(record.data).split(',');
             this.level.nativeElement.value = gunData[0];
@@ -322,7 +325,7 @@ export class AppComponent implements OnInit {
             this.consoleLog(`Gun loaded: ${this.currentGun.level} ${this.currentGun.type} ${this.currentGun.guild} ${this.currentGun.rarity} ${this.currentGun.element} ${this.currentGun.prefix}`);
           }
           this._cdf.detectChanges();
-          this.gunList.push({...this.currentGun})
+
           this.loadedGun.nativeElement.innerHTML = `Gun loaded: Level ${this.currentGun.level} ${this.currentGun.type} ${this.currentGun.guild} ${this.currentGun.rarity} ${this.currentGun.element} ${this.currentGun.prefix}`;
         }
       } catch (error: any) {
