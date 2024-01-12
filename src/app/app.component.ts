@@ -270,7 +270,7 @@ export class AppComponent implements OnInit {
       }
     }
     
-    this.gunList.push(this.currentGun)
+    this.gunList.push({...this.currentGun})
   }
 
   loadGun(event: GunCard) {
