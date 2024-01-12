@@ -1,17 +1,19 @@
 <main class="main">
   <h1>{{ title }}</h1>
   
-  <button (click)="readTag()">Load Gun</button>
-  <dialog #dialog>
-    @if (dialogState === 'read') {
-      Tap your NFC chip to load gun
-    } @else {
-      Tap to save your gun to an NFC Chip
-    }
-    <p #loadedGun></p>
-    <button (click)="closeDialog()">X</button>
-  </dialog>
-  <button (click)="writeTag()">Save Gun</button>
+  <div *ngIf="hasNDEFReader">
+    <button (click)="readTag()">Load Gun</button>
+    <dialog #dialog>
+      @if (dialogState === 'read') {
+        Tap your NFC chip to load gun
+      } @else {
+        Tap to save your gun to an NFC Chip
+      }
+      <p #loadedGun></p>
+      <button (click)="closeDialog()">X</button>
+    </dialog>
+    <button (click)="writeTag()">Save Gun</button>
+  </div>
 
   <br><br>
   <button (click)="generateNewGun()">Generate!</button>
@@ -44,16 +46,18 @@
     </select>
     <button type="submit">Submit</button>
   </form>
-  <p *ngIf="!!level && !!gunRarity && !!gunGuild && !!gunType">{{ level.value }} {{ gunRarity !== 'Legendary' ? gunPrefix : '' }} {{ gunRarity }} {{ gunGuild }} {{ gunType }}</p>
+  <p>{{ currentGun.level }} {{ currentGun.prefix }} {{ currentGun.rarity }} {{ currentGun.guild }} {{ currentGun.type }}</p>
 
 </main>
 
-<bnb-gun-card [level]="getLevel(level.value)" [type]="gunType" [guild]="gunGuild" [rarity]="gunRarity" [element]="gunElement" [prefix]="gunPrefix" id="gunCard"/>
+<bnb-gun-card [level]="currentGun.level" [type]="currentGun.type" [guild]="currentGun.guild" [rarity]="currentGun.rarity" [element]="currentGun.element" [prefix]="currentGun.prefix" id="gunCard"/>
 <hr>
 <h2>History</h2>
 <bnb-history-list [data]="gunList" (loadGun)="loadGun($event)"/>
 <hr>
-<h4>Log</h4>
-<button (click)="clearLog()">Clear Logs</button>
-<p id="log" #log></p>
+<div *ngIf="hasNDEFReader">
+  <h4>Log</h4>
+  <button (click)="clearLog()">Clear Logs</button>
+  <p id="log" #log></p>
+</div>
 <router-outlet></router-outlet>
