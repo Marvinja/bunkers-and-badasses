@@ -32,6 +32,7 @@ export class AppComponent implements OnInit {
   ndef!: NDEFReader;
   controller!: AbortController;
   dialogState!: 'read' | 'write';
+  hasScannedItem: boolean = false;
 
   currentGun!: GunCard;
   gunList: GunCard[] = [];
@@ -273,6 +274,12 @@ export class AppComponent implements OnInit {
     this.gunList.push({...this.currentGun})
   }
 
+  onSave() {
+    this.hasScannedItem = false;
+    this.loadedGun.nativeElement.innerHTML = '';
+    this.gunList.push({...this.currentGun});
+  }
+
   loadGun(event: GunCard) {
     this.currentGun = event;
   }
@@ -305,7 +312,6 @@ export class AppComponent implements OnInit {
       try {
         await this.ndef.scan({signal}).then(() => {
           this.consoleLog("An NFC Chip has been scanned. Adding Gun to the list")
-          this.gunList.push({...this.currentGun});
         });
         this.ndef.onreading = (event: NDEFReadingEvent) => {
           this.consoleLog("Event: " + event);
@@ -325,7 +331,7 @@ export class AppComponent implements OnInit {
             this.consoleLog(`Gun loaded: ${this.currentGun.level} ${this.currentGun.type} ${this.currentGun.guild} ${this.currentGun.rarity} ${this.currentGun.element} ${this.currentGun.prefix}`);
           }
           this._cdf.detectChanges();
-
+          this.hasScannedItem = true;
           this.loadedGun.nativeElement.innerHTML = `Gun loaded: Level ${this.currentGun.level} ${this.currentGun.type} ${this.currentGun.guild} ${this.currentGun.rarity} ${this.currentGun.element} ${this.currentGun.prefix}`;
         }
       } catch (error: any) {

@@ -10,6 +10,7 @@
         Tap to save your gun to an NFC Chip
       }
       <p #loadedGun></p>
+      <button *ngIf="hasScannedItem" (click)="onSave()">Save Gun</button>
       <button (click)="closeDialog()">X</button>
     </dialog>
     <button (click)="writeTag()">Save Gun</button>
