@@ -47,7 +47,7 @@
     </select>
     <button type="submit">Submit</button>
   </form>
-  <p>{{ currentGun.level }} {{ currentGun.prefix }} {{ currentGun.rarity }} {{ currentGun.guild }} {{ currentGun.type }}</p>
+  <p>{{ currentGun.level }} {{ currentGun.rarity !== "Legendary" ? currentGun.prefix : '' }} {{ currentGun.rarity }} {{ currentGun.guild }} {{ currentGun.type }}</p>
 
 </main>
 

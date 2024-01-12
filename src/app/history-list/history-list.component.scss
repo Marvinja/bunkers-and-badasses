@@ -34,8 +34,21 @@
             grid-template-columns: subgrid;
             grid-column: 1 / 9;
             margin-bottom: 0.5rem;
-            border: 2px solid transparent;
-            border-radius: 0.5rem;
+            color: black;
+            --offset: 0.5rem;
+            clip-path: polygon(var(--offset) 0, 100% 0, 100% calc(100% - var(--offset)), calc(100% - var(--offset)) 100%, 0 100%, 0 var(--offset) );
+            position: relative;
+            z-index: 0;
+
+            &::before {
+                content: '';
+                background: #f2f2f2;
+                inset: 2px 2px 2px 2px;
+                clip-path: polygon(var(--offset) 0, 100% 0, 100% calc(100% - var(--offset)), calc(100% - var(--offset)) 100%, 0 100%, 0 var(--offset) );
+                position: absolute;
+                z-index: -1;
+                opacity: 0.5;
+            }
 
             p {
                 margin: 0.5rem;
@@ -49,23 +62,21 @@
             }
 
             &-common {
-                border-color: #e0e0e0;
+                background: #e0e0e0;
+                color:black;
             }
             &-uncommon {
-                border-color: rgb(0, 172, 0);
-                color: rgb(0, 172, 0);
+                background: color-mix(in srgb, #00ac00 50%, #e0e0e0 50%);
             }
             &-rare {
-                border-color: rgb(8, 81, 216);
-                color: rgb(8, 81, 216);
+                background: color-mix(in srgb, #0851d8 50%, #e0e0e0 50%);
             }
             &-epic {
-                border-color: rgb(155, 2, 194);
-                color: rgb(155, 2, 194);
+                background: color-mix(in srgb, #9b02c2 50%, #e0e0e0 50%);
             }
             &-legendary {
-                border-color: rgb(255, 166, 0);
-                color: rgb(255, 166, 0);
+                background: color-mix(in srgb, #ffa100 50%, #e0e0e0 50%);
+                color: black;
             }
         }
         
