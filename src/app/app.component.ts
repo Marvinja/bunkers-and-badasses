@@ -318,9 +318,7 @@ export class AppComponent implements OnInit {
       this.controller = new AbortController();
       const signal = this.controller.signal;
       try {
-        await this.ndef.scan({signal}).then(() => {
-          this.consoleLog("An NFC Chip has been scanned. Adding Gun to the list")
-        });
+        await this.ndef.scan({signal});
         this.ndef.onreading = (event: NDEFReadingEvent) => {
           this.consoleLog("Event: " + event);
           const decoder = new TextDecoder();
@@ -338,9 +336,9 @@ export class AppComponent implements OnInit {
             this.currentGun.prefix = gunData[5] === 'undefined' ? undefined : gunData[5] as PrefixTypes | RedPrefixTypes;
             this.consoleLog(`Gun loaded: ${this.currentGun.level} ${this.currentGun.type} ${this.currentGun.guild} ${this.currentGun.rarity} ${this.currentGun.element} ${this.currentGun.prefix}`);
           }
+          // this._cdf.detectChanges();
           this.hasScannedItem = true;
           this.loadedGun.nativeElement.innerHTML = `Gun loaded: Level ${this.currentGun.level} ${this.currentGun.type} ${this.currentGun.guild} ${this.currentGun.rarity} ${this.currentGun.element} ${this.currentGun.prefix}`;
-          this._cdf.detectChanges();
         }
       } catch (error: any) {
         this.consoleLog('Error: ' + error);
@@ -364,7 +362,7 @@ export class AppComponent implements OnInit {
         ]}, { signal }).then(() => {
           this.loadedGun.nativeElement.innerHTML = `Saved gun successfully!: Level ${this.currentGun.level} ${this.currentGun.rarity} ${this.currentGun.element !== 'N/A' ? this.currentGun.element: ''} ${!!this.currentGun.prefix} ${this.currentGun.guild} ${this.currentGun.type}`
         });
-        this.consoleLog(`Level ${this.currentGun.level} ${this.currentGun.rarity} ${this.currentGun.element !== 'N/A' ? this.currentGun.element: ''} ${!!this.currentGun.prefix} ${this.currentGun.guild} ${this.currentGun.type}`);
+        this.consoleLog(`Level ${this.currentGun.level} ${this.currentGun.rarity} ${this.currentGun.element !== 'N/A' ? this.currentGun.element: ''} ${this.currentGun.prefix !== undefined ? this.currentGun.prefix : ''} ${this.currentGun.guild} ${this.currentGun.type}`);
       } catch(error) {
         this.consoleLog(error);
       }
