@@ -93,16 +93,28 @@
             padding: 0.25rem;
 
             &.uncommon{
-                background: color-mix(in srgb, #00ac00 40%, #e0e0e0 60%)
+                background: color-mix(in srgb, #00ac00 40%, #e0e0e0 60%);
+                h3 {
+                    color: #00ac00;
+                }
             }
             &.rare{
-                background: color-mix(in srgb, #0851d8 40%, #e0e0e0 60%)
+                background: color-mix(in srgb, #0851d8 40%, #e0e0e0 60%);
+                h3 {
+                    color: #0851d8;
+                }
             }
             &.epic{
-                background: color-mix(in srgb, #9b02c2 40%, #e0e0e0 60%)
+                background: color-mix(in srgb, #9b02c2 40%, #e0e0e0 60%);
+                h3 {
+                    color: #9b02c2;
+                }
             }
             &.legendary{
-                background: color-mix(in srgb, #ffa600 40%, #e0e0e0 60%)
+                background: color-mix(in srgb, #ffa600 40%, #e0e0e0 60%);
+                h3 {
+                    color: #ffa600;
+                }
             }
 
 
@@ -139,19 +151,15 @@
                 }
                 &.uncommon {
                     border-color: #00ac00;
-                    color: rgb(0, 172, 0);
                 }
                 &.rare {
                     border-color: #0851d8;
-                    color: rgb(8, 81, 216);
                 }
                 &.epic {
                     border-color: #9b02c2;
-                    color: rgb(155, 2, 194);
                 }
                 &.legendary {
                     border-color: #ffa600;
-                    color: rgb(255, 166, 0);
                 }
             }
 
