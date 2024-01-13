@@ -15,12 +15,12 @@ export class HistoryListComponent {
 
   @Output() loadGun: EventEmitter<GunCard> = new EventEmitter<GunCard>();
 
-  removeItemFromHistory(item: string) {
-    this.data.splice((this.data.length - parseInt(item)-1), 1);
+  removeItemFromHistory(item: number) {
+    this.data.splice((this.data.length - item - 1), 1);
   }
 
-  handleLoadGun(item: string) {
-    this.loadGun.emit(this.data[(this.data.length - parseInt(item)-1)]);
+  handleLoadGun(item: number) {
+    this.loadGun.emit(this.data[(this.data.length - item - 1)]);
     document.getElementById('gunCard')?.scrollIntoView();
   }
 

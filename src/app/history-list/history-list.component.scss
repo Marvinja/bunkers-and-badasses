@@ -4,7 +4,7 @@
         &--container {
             &-list {
                 display: grid;
-                grid-template-columns: repeat(2, minmax(100px, max-content)) 1fr repeat(4, minmax(100px, max-content)) max-content;
+                grid-template-columns: repeat(2, minmax(100px, max-content)) minmax(1fr, max-content) repeat(4, minmax(100px, max-content)) max-content;
                 // max-height: 500px;
                 // overflow: scroll;
             }
@@ -85,7 +85,7 @@
         }
     }
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 900px) {
         .bnb-history-list {
 
             &--container {

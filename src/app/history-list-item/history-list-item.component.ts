@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { GunCard } from '../types';
 
 @Component({
@@ -11,6 +11,17 @@ import { GunCard } from '../types';
 })
 export class HistoryListItemComponent {
   @Input() gun!: GunCard;
+
+  @Output() loaded: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+  @Output() removed: EventEmitter<MouseEvent> = new EventEmitter<MouseEvent>();
+
+  onLoaded(event: MouseEvent) {
+    this.loaded.emit(event)
+  }
+
+  onRemove(event: MouseEvent) {
+    this.removed.emit(event)
+  }
 
   convertElement(element: string) {
     switch(element) {
