@@ -320,20 +320,21 @@ export class AppComponent implements OnInit {
       try {
         await this.ndef.scan({signal});
         this.ndef.onreading = (event: NDEFReadingEvent) => {
-          this.consoleLog("Event: " + event);
           const decoder = new TextDecoder();
           for (const record of event.message.records) {
             // this.consoleLog("Record type: " + record.recordType);
             // this.consoleLog("MIME type: " + record.mediaType);
-            this.consoleLog("data: " + decoder.decode(record.data));
-            let gunData = decoder.decode(record.data).split(',');
+            this.consoleLog("Data: " + decoder.decode(record.data));
+            let gunData = decoder.decode(record.data).split('|');
             this.level.nativeElement.value = gunData[0];
-            this.currentGun.level = parseInt(gunData[0]);
-            this.currentGun.type = gunData[1] as GunTypes;
-            this.currentGun.guild = gunData[2] as GuildTypes;
-            this.currentGun.rarity = gunData[3] as RarityTypes;
-            this.currentGun.element = gunData[4] as ElementTypes;
-            this.currentGun.prefix = gunData[5] === 'undefined' ? undefined : gunData[5] as PrefixTypes | RedPrefixTypes;
+            this.currentGun = {
+              level: parseInt(gunData[0]),
+              type: gunData[1] as GunTypes,
+              guild: gunData[2] as GuildTypes,
+              rarity: gunData[3] as RarityTypes,
+              element: gunData[4] as ElementTypes,
+              prefix: gunData[5] === 'undefined' ? undefined : gunData[5] as PrefixTypes | RedPrefixTypes,
+            }
             this.consoleLog(`Gun loaded: ${this.currentGun.level} ${this.currentGun.type} ${this.currentGun.guild} ${this.currentGun.rarity} ${this.currentGun.element} ${this.currentGun.prefix}`);
           }
           this.hasScannedItem = true;
@@ -358,9 +359,9 @@ export class AppComponent implements OnInit {
       const signal = this.controller.signal;
       try {
         await ndef.write({ records: [
-          { recordType: 'text', data: `${this.currentGun.level},${this.currentGun.type},${this.currentGun.guild},${this.currentGun.rarity},${this.currentGun.element},${this.currentGun.prefix}` as string },
+          { recordType: 'text', data: `${this.currentGun.level}|${this.currentGun.type}|${this.currentGun.guild}|${this.currentGun.rarity}|${this.currentGun.element}|${this.currentGun.prefix}` as string },
         ]}, { signal }).then(() => {
-          this.loadedGun.nativeElement.innerHTML = `Saved gun successfully!: Level ${this.currentGun.level} ${this.currentGun.rarity} ${this.currentGun.element !== 'N/A' ? this.currentGun.element: ''} ${!!this.currentGun.prefix} ${this.currentGun.guild} ${this.currentGun.type}`
+          this.loadedGun.nativeElement.innerHTML = `Saved gun successfully!: Level ${this.currentGun.level} ${this.currentGun.rarity} ${this.currentGun.element !== 'N/A' ? this.currentGun.element: ''} ${this.currentGun.prefix} ${this.currentGun.guild} ${this.currentGun.type}`
         });
         this.consoleLog(`Level ${this.currentGun.level} ${this.currentGun.rarity} ${this.currentGun.element !== 'N/A' ? this.currentGun.element: ''} ${this.currentGun.prefix !== undefined ? this.currentGun.prefix : ''} ${this.currentGun.guild} ${this.currentGun.type}`);
       } catch(error) {
