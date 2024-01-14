@@ -11,7 +11,7 @@
         }
         <h3 #loadedGun></h3>
         <bnb-gun-card *ngIf="!!stagingGun" [level]="stagingGun.level" [type]="stagingGun.type" [guild]="stagingGun.guild" [rarity]="stagingGun.rarity" [element]="stagingGun.element" [prefix]="stagingGun.prefix" id="gunCard"/>
-        <button (click)="onSave()"><h4>Save Gun</h4></button>
+        <button *ngIf="hasScannedItem" (click)="onSave()"><h4>Save Gun</h4></button>
         <button (click)="closeDialog()" class="close">X</button>
       </div>
     </dialog>
