@@ -35,6 +35,7 @@ export class AppComponent implements OnInit {
   hasScannedItem: boolean = false;
 
   currentGun!: GunCard;
+  stagingGun!: GunCard;
   gunList: GunCard[] = [];
 
 
@@ -283,6 +284,8 @@ export class AppComponent implements OnInit {
       this.loadedGun.nativeElement.innerHTML = '';
       this.controller.abort();
     }
+    this.currentGun = this.stagingGun;
+    this.stagingGun = {} as GunCard;
     this.gunList.push({...this.currentGun});
     this.dialog.nativeElement.close();
     this._cdf.detectChanges();
@@ -327,7 +330,7 @@ export class AppComponent implements OnInit {
             this.consoleLog("Data: " + decoder.decode(record.data));
             let gunData = decoder.decode(record.data).split('|');
             this.level.nativeElement.value = gunData[0];
-            this.currentGun = {
+            this.stagingGun = {
               level: parseInt(gunData[0]),
               type: gunData[1] as GunTypes,
               guild: gunData[2] as GuildTypes,
@@ -335,10 +338,10 @@ export class AppComponent implements OnInit {
               element: gunData[4] as ElementTypes,
               prefix: gunData[5] === 'undefined' ? undefined : gunData[5] as PrefixTypes | RedPrefixTypes,
             }
-            this.consoleLog(`Gun loaded: ${this.currentGun.level} ${this.currentGun.type} ${this.currentGun.guild} ${this.currentGun.rarity} ${this.currentGun.element} ${this.currentGun.prefix}`);
+            this.consoleLog(`Gun loaded: ${this.stagingGun.level} ${this.stagingGun.type} ${this.stagingGun.guild} ${this.stagingGun.rarity} ${this.stagingGun.element} ${this.stagingGun.prefix}`);
           }
           this.hasScannedItem = true;
-          this.loadedGun.nativeElement.innerHTML = `Gun loaded: Level ${this.currentGun.level} ${this.currentGun.type} ${this.currentGun.guild} ${this.currentGun.rarity} ${this.currentGun.element} ${this.currentGun.prefix}`;
+          this.loadedGun.nativeElement.innerHTML = `Gun loaded: Level ${this.stagingGun.level} ${this.stagingGun.type} ${this.stagingGun.guild} ${this.stagingGun.rarity} ${this.stagingGun.element} ${this.stagingGun.prefix}`;
           this._cdf.detectChanges();
         }
       } catch (error: any) {

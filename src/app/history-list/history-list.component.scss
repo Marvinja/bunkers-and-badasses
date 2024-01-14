@@ -4,7 +4,7 @@
         &--container {
             &-list {
                 display: grid;
-                grid-template-columns: max-content fit-content 1fr repeat(5, max-content);
+                grid-template-columns: max-content max-content 1fr repeat(5, max-content);
             }
 
         }

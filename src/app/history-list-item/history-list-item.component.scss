@@ -61,13 +61,23 @@
             button {
                 padding: 0.25rem 0.5rem;
                 height: 100%;
-                border: 0;
+                border:none;
                 --offset: 0.5rem;
                 clip-path: polygon(var(--offset) 0, 100% 0, 100% calc(100% - var(--offset)), calc(100% - var(--offset)) 100%, 0 100%, 0 var(--offset) );
-                transition: 0.2s ease scale;
+                will-change: auto;
+
+                &.remove {
+                    background: rgb(204, 0, 0);
+                    color: white;
+
+                    &:hover {
+                        background: rgb(226, 0, 0);
+                        color: white;
+                    }
+                }
 
                 &:hover {
-                    background: #e0e0e0;
+                    background: #f2f2f2;
                     scale: 1.1;
                 }
             }
@@ -176,10 +186,16 @@
                     border: none;
                     --offset: 0.5rem;
                     clip-path: polygon(var(--offset) 0, 100% 0, 100% calc(100% - var(--offset)), calc(100% - var(--offset)) 100%, 0 100%, 0 var(--offset) );
+                    
+                    &.remove {
+                        background: rgb(204, 0, 0);
+                        color: white;
+                    }
 
                     &:first-child {
                         margin-inline: 0.5rem 0.25rem;
                     }
+
                     &:last-child {
                         margin-inline: 0.25rem 0.5rem;
                     }

@@ -7,8 +7,8 @@
     <p>{{ gun.guild }}</p>
     <p>{{ gun.element }}</p>
     <div class="buttons">
-        <button (click)="onLoaded($event)"><i class="fa-solid fa-upload"></i></button>
-        <button (click)="onRemove($event)"><i class="fa-solid fa-xmark"></i></button>
+        <button (click)="onLoaded($event)"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button (click)="onRemove($event)" class="remove"><i class="fa-solid fa-trash"></i></button>
     </div>
 </div>
 <div class="card {{gun.rarity | lowercase}}">
@@ -20,7 +20,7 @@
         <p class="type" [style.grid-area]="'type'">{{ gun.type }}</p>
     </div>
     <div class="card-actions" [style.grid-area]="'actions'">
-        <button (click)="onLoaded($event)">Load gun</button>
-        <button (click)="onRemove($event)">Remove gun</button>
+        <button (click)="onLoaded($event)"><i class="fa-solid fa-magnifying-glass"></i> Inspect</button>
+        <button (click)="onRemove($event)" class="remove"><i class="fa-solid fa-trash"></i> Trash</button>
     </div>
 </div>
