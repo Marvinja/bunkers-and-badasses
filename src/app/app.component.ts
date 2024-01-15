@@ -292,7 +292,7 @@ export class AppComponent implements OnInit {
   }
 
   loadGun(event: GunCard) {
-    this.currentGun = event;
+    this.currentGun = {...event};
   }
 
   convertToRarityType(rarity:string):RarityTypes {
