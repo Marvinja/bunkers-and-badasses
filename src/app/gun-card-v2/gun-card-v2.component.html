@@ -1,0 +1,98 @@
+<div class="gun-card--container {{ gun.rarity.toLowerCase() }}">
+    <div class="content">
+        <div [style.grid-area]="'name'" class="name"><h4>{{ gun.guild }} {{ gun.type }}</h4></div>
+        <div [style.grid-area]="'stats'" class="stats">
+            <!-- <div class="left">
+                <p class="rarity">{{ gun.rarity }}</p>
+                <div class="type">
+                    <img *ngIf="!!gun.type" src="/assets/img/{{ gun.type.split(' ').join('').toLowerCase() }}.webp"/>
+                </div>
+                <div class="element">
+                    <div>
+                        @if (gun.element === "N/A") {
+                            <p>{{ gun.element }}</p>
+                        } @else {
+                            <p>{{ gun.element }}</p>
+                            <img src="./assets/img/{{ (gun.element.includes('+') ? convertElement(gun.element) : gun.element) | lowercase }}.webp" width="24px"/>
+                        }
+                    </div>
+                </div>
+            </div> -->
+            <div class="right">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{{ gun.rarity }}</th>
+                            <th>Accuracy</th>
+                            <th>Roll</th>
+                            <th>Hits</th>
+                            <th>Crits</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let acc of accuracy | keyvalue: keepOrder; index as i">
+                            <td *ngIf="i === 0" rowspan="3">
+                                <div class="type">
+                                    <img *ngIf="!!gun.type" src="/assets/img/{{ gun.type.split(' ').join('').toLowerCase() }}.webp"/>
+                                </div>
+                            </td>
+                            <td *ngIf="i === 0" rowspan="3">
+                                <div>
+                                    <img src="/assets/img/d20.webp" class="icon"/>
+                                    <p>+</p>
+                                    <div contenteditable="true" data-attribute="Mod">Mod</div>
+                                </div>
+                            </td>
+                            <td><p>{{ acc.key }}</p></td>
+                            <td class="hits"><p>{{ acc.value.hits }}</p></td>
+                            <td class="crits"><p>{{ acc.value.crits }}</p></td>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td rowspan="2">
+                                <div class="element">
+                                    <div>
+                                        @if (gun.element !== "N/A") {
+                                            <p>{{ gun.element }}</p>
+                                            <img src="./assets/img/{{ (gun.element.includes('+') ? convertElement(gun.element) : gun.element) | lowercase }}.webp" width="24px"/>
+                                        }
+                                    </div>
+                                </div>
+                            </td>
+                            <th colspan="3">Damage</th>
+                            <th colspan="2">Range</th>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="damage" *ngIf="damage">
+                                <div>
+                                    <div style="display: flex; align-items: center; justify-content: center;">
+                                        <img class="dice icon" src="/assets/img/d{{damage[1]}}.webp"/>
+                                        <p class="numDice"><b>x{{ damage[0] }}</b></p>
+                                    </div>
+                                    <div class="hits">
+                                        <img src="/assets/img/hits.svg" class="icon"/>
+                                        <p>PER</p>
+                                    </div>
+                                    <p>+</p>
+                                    <div contenteditable="true">Mod</div>
+                                </div>
+                            </td>
+                            <td colspan="2">
+                                {{ range }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div [style.grid-area]="'descriptions'" class="descriptions">
+            <p>Guild Bonus: {{ guildBonus }}</p>
+            <p *ngIf="!!gun.prefix">{{ gun.prefix }}: {{ prefixDescription }}</p>
+        </div>
+        <div [style.grid-area]="'gun-bonus'" class="gun-bonus">
+            <p *ngIf="!!weaponBonus">Weapon Bonus: {{ weaponBonus }}</p>
+            <div><img *ngIf="!!gun.guild" src="assets/img/{{ gun.guild }}.png" width="128px"/></div>
+        </div>
+    </div>
+</div>

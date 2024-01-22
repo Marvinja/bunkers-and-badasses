@@ -9,6 +9,10 @@
     }
     .uncommon {
         background: color-mix(in srgb, #00ac00 50%, #e0e0e0 50%);
+        // &.selected {
+        //     background: #00ac00;
+        //     scale: 1.01;
+        // }
     }
     .rare {
         background: color-mix(in srgb, #0851d8 50%, #e0e0e0 50%);
@@ -35,15 +39,20 @@
         clip-path: polygon(var(--offset) 0, 100% 0, 100% calc(100% - var(--offset)), calc(100% - var(--offset)) 100%, 0 100%, 0 var(--offset) );
         position: relative;
         z-index: 0;
+        transition: 0.1s scale ease-in;
+
+        &:hover {
+            scale: 1.01;
+        }
 
         &::before {
             content: '';
-            background: #f2f2f2;
+            background: white;
             inset: 2px 2px 2px 2px;
             clip-path: polygon(var(--offset) 0, 100% 0, 100% calc(100% - var(--offset)), calc(100% - var(--offset)) 100%, 0 100%, 0 var(--offset) );
             position: absolute;
             z-index: -1;
-            opacity: 0.5;
+            opacity: 0.9;
         }
 
         p {

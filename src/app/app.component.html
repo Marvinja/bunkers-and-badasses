@@ -1,6 +1,7 @@
 <main class="main">
   <h1>{{ title }}</h1>
-  <div>
+  
+  <div *ngIf="hasNDEFReader">
     <button (click)="readTag()">Load Gun</button>
     <dialog #dialog>
       <div>
@@ -53,7 +54,8 @@
 
 </main>
 
-<bnb-gun-card [level]="currentGun.level" [type]="currentGun.type" [guild]="currentGun.guild" [rarity]="currentGun.rarity" [element]="currentGun.element" [prefix]="currentGun.prefix" id="gunCard"/>
+<bnb-gun-card-v2 [gun]="currentGun"></bnb-gun-card-v2>
+<!-- <bnb-gun-card [level]="currentGun.level" [type]="currentGun.type" [guild]="currentGun.guild" [rarity]="currentGun.rarity" [element]="currentGun.element" [prefix]="currentGun.prefix" id="gunCard"/> -->
 <hr>
 <h2>Loot Pile</h2>
 <bnb-history-list [data]="gunList" (loadGun)="loadGun($event)"/>
@@ -63,5 +65,7 @@
   <button (click)="clearLog()">Clear Logs</button>
   <p id="log" #log></p>
 </div>
+
+
 
 <router-outlet></router-outlet>
