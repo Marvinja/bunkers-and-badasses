@@ -6,11 +6,23 @@ import { GUN_TYPE_RESULTS, ELEMENTAL_TABLE, GUILD_BONUSES, GUN_RARITIES, GUN_RAR
 import { GunCardComponent } from './gun-card/gun-card.component';
 import { ElementTypes, GuildTypes, GunCard, GunTypes, PrefixTypes, RarityTypes, RedPrefixTypes } from './types';
 import { HistoryListComponent } from './history-list/history-list.component';
+import { GunCardV2Component } from './gun-card-v2/gun-card-v2.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule, ReactiveFormsModule, RouterLink, RouterLinkActive, GunCardComponent, TitleCasePipe, HistoryListComponent],
+  imports: [
+    CommonModule, 
+    RouterOutlet, 
+    FormsModule, 
+    ReactiveFormsModule, 
+    RouterLink, 
+    RouterLinkActive, 
+    GunCardComponent, 
+    TitleCasePipe, 
+    HistoryListComponent,
+    GunCardV2Component
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -63,7 +75,7 @@ export class AppComponent implements OnInit {
       element: "N/A",
       prefix: undefined,
     }
-    this.generateNewGun();    
+    this.generateNewGun();
   }
 
   generateNewGun() {

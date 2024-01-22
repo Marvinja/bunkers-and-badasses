@@ -1,0 +1,259 @@
+@property --border-width {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+}
+
+:host {
+    --common: #CDD5DA;
+    --uncommon: #4E9C42;
+    --rare: #009CBF;
+    --epic: #9553A0;
+    --legendary: #F68C1E;
+    
+    .gun-card--container {
+        &.common { --color: var(--common); }
+        &.uncommon { --color: var(--uncommon); }
+        &.rare { --color: var(--rare); }
+        &.epic { --color: var(--epic); }
+        &.legendary { --color: var(--legendary); }
+
+        background: rgb(from var(--color) r g b / 5%);
+        --border-width: 0px;
+        box-shadow: 0px 0px 0px var(--border-width) var(--color);
+        transition: 0.3s --border-width;
+        max-width: 500px;
+        color: var(--color);
+
+        &:hover, &:active {
+            --border-width: 4px;
+        }
+
+        .content {
+            display: grid;
+            grid-template-areas: "name" "stats" "descriptions" "gun-bonus";
+            grid-template-rows: repeat(4, max-content);
+            grid-template-columns: 1fr;
+
+            .name {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                h4 {
+                    font-size: 1.5rem;
+                    font-style: italic;
+                    color: var(--color);
+                }
+            }
+
+            .stats {
+
+                .left {
+                    display: grid;
+                    grid-template-rows: max-content max-content 1fr;
+                    align-items: center;
+                    justify-items: center;
+
+                    .rarity {
+                        text-transform: uppercase;
+                        padding-block: 0.25rem;
+                        margin-block: 2px;
+                        background:rgb(from var(--color) r g b / 10%);
+                        width: 100%;
+                        text-align: center;
+                    }
+
+                    .type {
+                        background-color: black;
+                        width: 100%;
+                        height: 68px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        img {
+                            --padding: 0.5rem;
+                            width: calc(100% - var(--padding));
+                            height: calc(100% - var(--padding));
+                            object-fit: contain;
+                        }
+                    }
+
+
+                    .element {
+                        width: 100%;
+                        height: calc(100% - 4px);
+
+                        div {
+                            display: grid;
+                            grid-template-columns: 1fr max-content;
+                            align-items: center;
+                            margin-block: 2px;
+                            background:rgb(from var(--color) r g b / 10%);
+                            
+                            img {
+                                width: 2rem;
+                            }
+    
+                            p {
+                                &.incendiary { --color: }
+                                text-align: end;
+                            }
+                        }
+                    }
+                }
+
+                .right {
+                    table {
+                        width: 100%;
+                        border-spacing: 0.125rem;
+                        --corner-length: 15px;
+                        clip-path: polygon(var(--corner-length) 0, 100% 0, 100% 100%, var(--corner-length) 100%, 0 calc(100% - var(--corner-length)), 0 var(--corner-length));
+
+                        thead {
+                            tr {
+                                th {
+                                    text-align: center;
+                                    padding: 0.25rem 0.5rem;
+                                    text-transform: uppercase;
+                                    font-weight: bold;
+                                    background:rgb(from var(--color) r g b / 10%);
+                                    --col-1-size: 125px;
+
+                                    &:nth-child(1) {
+                                        width: var(--col-1-size);
+                                        min-width: var(--col-1-size);
+                                    }
+                                    &:nth-child(2) {
+                                        width: calc(100% - var(--col-1-size));
+                                    }
+                                }
+                            }
+                        }
+                        tbody {
+                            tr {
+                                td {
+                                    text-align: center;
+                                    text-wrap: nowrap;
+                                    background:rgb(from var(--color) r g b / 10%);
+                                    
+                                    & > div {
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        gap: 0.5rem;
+                                        flex-direction: row;
+
+                                    }
+                                    
+                                    [contenteditable="true"] {
+                                        font-size: 1.5rem;
+                                        font-family: "Avenir Next Condensed";
+                                    }
+
+                                    .icon {
+                                        width: 32px;
+                                        aspect-ratio: 1 / 1;
+                                    }
+
+                                    &.damage {
+                                        & > div {
+                                            display: flex;
+                                            flex-direction: row;
+                                            align-items: center;
+                                            justify-content: center;
+                                            gap: 0.5rem;
+                                            flex-grow: 1;
+                                            height: 42.66px;
+    
+                                            .hits {
+                                                position: relative;
+                                                display: flex;
+                                                align-items: center;
+                                                justify-content: center;
+    
+                                                p {
+                                                    position: absolute;
+                                                    top: 50%;
+                                                    left: 50%;
+                                                    transform: translate(-50%, -50%);
+                                                    color: white;
+                                                    font-weight: bold;
+                                                    font-size: 12px;
+                                                    font-family: "Avenir Next Condensed";
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    .type {
+                                        width: inherit;
+                                        padding: 0.5rem;
+                                        img {
+                                            height: 32px;
+                                            object-fit: contain;
+                                            width:64px;
+                                        }
+                                    }
+
+                                    &:has(.element) {
+                                        padding: 0.5rem;
+                                    }
+
+                                    .element {
+                                        width: 100%;
+                                        height: calc(100% - 4px);
+                                        justify-content: end;
+                
+                                        div {
+                                            display: grid;
+                                            grid-template-columns: 1fr max-content;
+                                            align-items: center;
+                                            margin-block: 2px;
+                                            gap: 0.5rem;
+                    
+                                            p {
+                                                &.incendiary { --color: }
+                                                text-align: end;
+                                                text-wrap: wrap;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                th {
+                                    text-align: center;
+                                    padding: 0.25rem 0.5rem;
+                                    text-transform: uppercase;
+                                    font-weight: bold;
+                                    background:rgb(from var(--color) r g b / 10%);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .descriptions {
+                padding: 0.5rem;
+                background:rgb(from var(--color) r g b / 5%);
+            }
+
+            .gun-bonus {
+                padding: 0.5rem;
+
+                div {
+                    display: flex;
+                    justify-content: end;
+
+                    img {
+                        object-fit: contain;
+                        width: 128px;
+                        height: 48px;
+                    }
+                }
+            }
+        }
+    }
+}
