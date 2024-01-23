@@ -5,7 +5,7 @@
             <!-- <div class="left">
                 <p class="rarity">{{ gun.rarity }}</p>
                 <div class="type">
-                    <img *ngIf="!!gun.type" src="/assets/img/{{ gun.type.split(' ').join('').toLowerCase() }}.webp"/>
+                    <img *ngIf="!!gun.type" src="assets/img/{{ gun.type.split(' ').join('').toLowerCase() }}.webp"/>
                 </div>
                 <div class="element">
                     <div>
@@ -13,7 +13,7 @@
                             <p>{{ gun.element }}</p>
                         } @else {
                             <p>{{ gun.element }}</p>
-                            <img src="./assets/img/{{ (gun.element.includes('+') ? convertElement(gun.element) : gun.element) | lowercase }}.webp" width="24px"/>
+                            <img src="assets/img/{{ (gun.element.includes('+') ? convertElement(gun.element) : gun.element) | lowercase }}.webp" width="24px"/>
                         }
                     </div>
                 </div>
@@ -33,12 +33,12 @@
                         <tr *ngFor="let acc of accuracy | keyvalue: keepOrder; index as i">
                             <td *ngIf="i === 0" rowspan="3">
                                 <div class="type">
-                                    <img *ngIf="!!gun.type" src="/assets/img/{{ gun.type.split(' ').join('').toLowerCase() }}.webp"/>
+                                    <img *ngIf="!!gun.type" src="assets/img/{{ gun.type.split(' ').join('').toLowerCase() }}.webp"/>
                                 </div>
                             </td>
                             <td *ngIf="i === 0" rowspan="3">
                                 <div>
-                                    <img src="/assets/img/d20.webp" class="icon"/>
+                                    <img src="assets/img/d20.webp" class="icon"/>
                                     <p>+</p>
                                     <div contenteditable="true" data-attribute="Mod">Mod</div>
                                 </div>
@@ -55,7 +55,7 @@
                                     <div>
                                         @if (gun.element !== "N/A") {
                                             <p>{{ gun.element }}</p>
-                                            <img src="./assets/img/{{ (gun.element.includes('+') ? convertElement(gun.element) : gun.element) | lowercase }}.webp" width="24px"/>
+                                            <img src="assets/img/{{ (gun.element.includes('+') ? convertElement(gun.element) : gun.element) | lowercase }}.webp" width="24px"/>
                                         }
                                     </div>
                                 </div>
@@ -67,11 +67,11 @@
                             <td colspan="3" class="damage" *ngIf="damage">
                                 <div>
                                     <div style="display: flex; align-items: center; justify-content: center;">
-                                        <img class="dice icon" src="/assets/img/d{{damage[1]}}.webp"/>
+                                        <img class="dice icon" src="assets/img/d{{damage[1]}}.webp"/>
                                         <p class="numDice"><b>x{{ damage[0] }}</b></p>
                                     </div>
                                     <div class="hits">
-                                        <img src="/assets/img/hits.svg" class="icon"/>
+                                        <img src="assets/img/hits.svg" class="icon"/>
                                         <p>PER</p>
                                     </div>
                                     <p>+</p>
