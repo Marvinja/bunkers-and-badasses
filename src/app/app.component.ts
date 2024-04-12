@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule, TitleCasePipe } from '@angular/common';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GUN_TYPE_RESULTS, ELEMENTAL_TABLE, GUILD_BONUSES, GUN_RARITIES, GUN_RARTIY_TABLE, GUN_TABLE, PREFIXES, RED_PREFIXES } from './tables';
 import { GunCardComponent } from './gun-card/gun-card.component';
@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
     return Math.ceil(Math.random() * dieType);
   }
 
-  constructor(private router: Router, private _cdf: ChangeDetectorRef) {}
+  constructor(private _cdf: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.currentGun = {
