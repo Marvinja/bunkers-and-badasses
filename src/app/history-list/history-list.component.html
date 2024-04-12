@@ -8,7 +8,9 @@
         <p><b>Guild</b></p>
         <p><b>Element</b></p>
     </div>
-    @for(gun of data.slice().reverse();  track i; let i = $index) {
-        <bnb-history-list-item [gun]="gun" (loaded)="handleLoadGun(i)" (removed)="removeItemFromHistory(i)"></bnb-history-list-item>
+    @if (data) {
+        @for(gun of data.slice().reverse();  track i; let i = $index) {
+            <bnb-history-list-item [gun]="gun" (loaded)="handleLoadGun(i)" (removed)="removeItemFromHistory(i)"></bnb-history-list-item>
+        }
     }
 </div>

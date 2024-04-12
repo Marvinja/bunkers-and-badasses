@@ -16,6 +16,7 @@ export class HistoryListComponent {
   @Output() loadGun: EventEmitter<GunCard> = new EventEmitter<GunCard>();
 
   removeItemFromHistory(item: number) {
+    if (!this.data) { throw new Error("No data") };
     this.data.splice((this.data.length - item - 1), 1);
   }
 

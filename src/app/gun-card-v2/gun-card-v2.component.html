@@ -1,4 +1,4 @@
-<div class="gun-card--container {{ gun.rarity.toLowerCase() }}">
+<div *ngIf="!!gun" class="gun-card--container {{ gun.rarity.toLowerCase() }}">
     <div class="content">
         <div [style.grid-area]="'name'" class="name"><h4>{{ gun.guild }} {{ gun.type }}</h4></div>
         <div [style.grid-area]="'stats'" class="stats">

@@ -99,7 +99,7 @@ export class GunCardV2Component {
     }
   }
 
-  keepOrder(a:any, b:any) {
+  keepOrder(a:any) {
     return a;    
   }
 }

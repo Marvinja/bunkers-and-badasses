@@ -18,7 +18,7 @@
         <button (click)="onRemove($event)" class="remove"><i class="fa-solid fa-trash"></i></button>
     </div>
 </div>
-<div class="card {{gun.rarity | lowercase}}">
+<div *ngIf="!!gun" class="card {{gun.rarity | lowercase}}">
     <div class="card-details {{gun.rarity | lowercase}}" [style.grid-area]="'details'">
         <p class="level" [style.grid-area]="'level'">level: {{ gun.level }}</p>
         <h3 class="name" [style.grid-area]="'name'">{{ convertElement(gun.element) }} {{ gun.prefix }} {{ gun.guild }} {{ gun.type }}</h3>
