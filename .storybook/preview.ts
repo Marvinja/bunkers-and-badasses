@@ -1,4 +1,5 @@
 import type { Preview } from "@storybook/angular";
+import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 import { setCompodocJson } from "@storybook/addon-docs/angular";
 import docJson from "../documentation.json";
 setCompodocJson(docJson);
@@ -11,6 +12,9 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
+    viewport: {
+      viewports: INITIAL_VIEWPORTS,
+    }
   },
 };
 
