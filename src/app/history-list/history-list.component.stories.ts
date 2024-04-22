@@ -4,7 +4,6 @@ import { HistoryListComponent } from './history-list.component';
 const meta: Meta<HistoryListComponent> = {
   title: 'Bunkers & Badasses/History List',
   component: HistoryListComponent,
-  tags: ['autodocs'],
 };
 
 export default meta;

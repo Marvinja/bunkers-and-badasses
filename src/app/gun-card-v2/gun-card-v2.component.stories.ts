@@ -4,7 +4,6 @@ import { GunCardV2Component } from './gun-card-v2.component';
 const meta: Meta<GunCardV2Component> = {
   title: 'Bunkers & Badasses/Gun Card v2',
   component: GunCardV2Component,
-  tags: ['autodocs'],
 };
 
 export default meta;
