@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "storybook": "ng run Bunkers-and-Badasses-Angular:storybook",
-    "build-storybook": "ng run Bunkers-and-Badasses-Angular:build-storybook"
+    "build-storybook": "ng run Bunkers-and-Badasses-Angular:build-storybook",
+    "storybook-docs": "storybook dev --docs",
+    "build-storybook-docs": "storybook build --docs"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +36,7 @@
     "@storybook/addon-essentials": "^8.0.8",
     "@storybook/addon-interactions": "^8.0.8",
     "@storybook/addon-links": "^8.0.8",
+    "@storybook/addon-mdx-gfm": "^8.0.8",
     "@storybook/angular": "^8.0.8",
     "@storybook/blocks": "^8.0.8",
     "@storybook/test": "^8.0.8",

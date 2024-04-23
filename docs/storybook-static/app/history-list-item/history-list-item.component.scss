@@ -1,0 +1,217 @@
+:host {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-column: 1 / 9;
+
+    .common {
+        background: #e0e0e0;
+        color:black;
+    }
+    .uncommon {
+        background: color-mix(in srgb, #00ac00 50%, #e0e0e0 50%);
+        // &.selected {
+        //     background: #00ac00;
+        //     scale: 1.01;
+        // }
+    }
+    .rare {
+        background: color-mix(in srgb, #0851d8 50%, #e0e0e0 50%);
+    }
+    .epic {
+        background: color-mix(in srgb, #9b02c2 50%, #e0e0e0 50%);
+    }
+    .legendary {
+        background: color-mix(in srgb, #ffa100 50%, #e0e0e0 50%);
+        color: black;
+    }
+
+    .row {
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        grid-template-columns: subgrid;
+        grid-column: 1 / 9;
+        gap: 1rem;
+        
+        margin-bottom: 0.5rem;
+        color: black;
+        --offset: 0.5rem;
+        clip-path: polygon(var(--offset) 0, 100% 0, 100% calc(100% - var(--offset)), calc(100% - var(--offset)) 100%, 0 100%, 0 var(--offset) );
+        position: relative;
+        z-index: 0;
+        transition: 0.1s scale ease-in;
+
+        &:hover {
+            scale: 1.01;
+        }
+
+        &::before {
+            content: '';
+            background: white;
+            inset: 2px 2px 2px 2px;
+            clip-path: polygon(var(--offset) 0, 100% 0, 100% calc(100% - var(--offset)), calc(100% - var(--offset)) 100%, 0 100%, 0 var(--offset) );
+            position: absolute;
+            z-index: -1;
+            opacity: 0.9;
+        }
+
+        p {
+            margin: 0.5rem;
+            &:nth-child(3) {
+                justify-self: flex-start;
+            }
+        }
+        
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+
+            button {
+                padding: 0.25rem 0.5rem;
+                height: 100%;
+                border:none;
+                --offset: 0.5rem;
+                clip-path: polygon(var(--offset) 0, 100% 0, 100% calc(100% - var(--offset)), calc(100% - var(--offset)) 100%, 0 100%, 0 var(--offset) );
+                will-change: auto;
+
+                &.remove {
+                    background: rgb(204, 0, 0);
+                    color: white;
+
+                    &:hover {
+                        background: rgb(226, 0, 0);
+                        color: white;
+                    }
+                }
+
+                &:hover {
+                    background: #f2f2f2;
+                    scale: 1.1;
+                }
+            }
+        }
+    }
+    
+    .card {
+        display: none;
+    }
+
+    @media screen and (max-width: 900px) {
+        .bnb-history-list-item {
+            display: none;
+        }
+
+        .card {
+            display: grid;
+            grid-template-areas:  "details" "actions";
+            margin-block: 0.5rem;
+            background: #e0e0e0;
+            --offset: 0.5rem;
+            clip-path: polygon(var(--offset) 0, 100% 0, 100% calc(100% - var(--offset)), calc(100% - var(--offset)) 100%, 0 100%, 0 var(--offset) );
+            border-radius: 0.5rem;
+            padding: 0.25rem;
+
+            &.uncommon{
+                background: color-mix(in srgb, #00ac00 40%, #e0e0e0 60%);
+                h3 {
+                    color: #00ac00;
+                }
+            }
+            &.rare{
+                background: color-mix(in srgb, #0851d8 40%, #e0e0e0 60%);
+                h3 {
+                    color: #0851d8;
+                }
+            }
+            &.epic{
+                background: color-mix(in srgb, #9b02c2 40%, #e0e0e0 60%);
+                h3 {
+                    color: #9b02c2;
+                }
+            }
+            &.legendary{
+                background: color-mix(in srgb, #ffa600 40%, #e0e0e0 60%);
+                h3 {
+                    color: #ffa600;
+                }
+            }
+
+
+            &-details {
+                border-radius: 0.5rem;
+                display: grid;
+                justify-items: center;
+                grid-template-areas: "level level level" "name name name" "guild element type";
+                grid-template-columns: repeat(3, 1fr);
+                margin-block-end: 0.25rem;
+                background: #f2f2f2;
+                
+                .level {
+                    font-size: 14px;
+                    background: #f2f2f2;
+                }
+                
+                .name {
+                    display: block;
+                    width: 100%;
+                    text-align: center;
+                    padding-block: 0.5rem;
+                    background: white;
+                }
+
+                .type, .guild, .element {
+                    width: 100%;
+                    display: block;
+                    text-align: center;
+                }
+
+                &.common {
+                    border-color: #e0e0e0;
+                }
+                &.uncommon {
+                    border-color: #00ac00;
+                }
+                &.rare {
+                    border-color: #0851d8;
+                }
+                &.epic {
+                    border-color: #9b02c2;
+                }
+                &.legendary {
+                    border-color: #ffa600;
+                }
+            }
+
+            &-actions {
+                width: 100%;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+
+                button {
+                    background: #f2f2f2;
+                    padding: 0.25rem 0.5rem;
+                    flex-grow: 1;
+                    border: none;
+                    --offset: 0.5rem;
+                    clip-path: polygon(var(--offset) 0, 100% 0, 100% calc(100% - var(--offset)), calc(100% - var(--offset)) 100%, 0 100%, 0 var(--offset) );
+                    
+                    &.remove {
+                        background: rgb(204, 0, 0);
+                        color: white;
+                    }
+
+                    &:first-child {
+                        margin-inline: 0.5rem 0.25rem;
+                    }
+
+                    &:last-child {
+                        margin-inline: 0.25rem 0.5rem;
+                    }
+                }
+            }
+
+        }
+    }
+}
+

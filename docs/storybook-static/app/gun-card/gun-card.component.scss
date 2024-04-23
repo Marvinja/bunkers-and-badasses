@@ -1,0 +1,38 @@
+:host {
+    
+    .gun-card {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-block: 2rem;
+        align-items: center;
+
+        img {
+            margin: auto auto;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: contain;
+
+            &.uncommon {
+                filter: drop-shadow(0px 0px 4px #00ad00);
+            }
+            &.rare {
+                filter: drop-shadow(0px 0px 4px #0851d9);
+            }
+            &.epic {
+                filter: drop-shadow(0px 0px 4px #9a02c0);
+            }
+            &.legendary {
+                filter: drop-shadow(0px 0px 4px #ffa200);
+            }
+        }
+
+    
+    }
+    @media (max-width: 600px) {
+        .gun-card {
+            gap: 1rem;
+            grid-template-columns: 1fr;
+            grid-template-rows: auto;
+        }
+    }
+}
