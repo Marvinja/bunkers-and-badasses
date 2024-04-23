@@ -1,0 +1,29 @@
+<div class="gun-card">
+    @if (damage !== undefined) {
+        <div class="content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Accuracy</th>
+                        <th>Hits</th>
+                        <th>Crits</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let acc of accuracy | keyvalue: keepOrder">
+                        <td>{{ acc.key }}</td>
+                        <td>{{ acc.value.hits }}</td>
+                        <td>{{ acc.value.crits }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Damage: {{ damage[0] + 'd' + damage[1] }}</p>
+            <p>Range: {{ range }}</p>
+            <p *ngIf="!!weaponBonus">Weapon Bonus: {{ weaponBonus }}</p>
+            <p>Guild Bonus: {{ guildBonus }}</p>
+            <p *ngIf="element != 'N/A'">Element: {{ element }}</p>
+            <p *ngIf="!!prefix">{{ prefix }}: {{ prefixDescription }}</p>
+        </div>
+        <img *ngIf="!!type" src="./assets/img/{{ type.split(' ').join('-') | lowercase }}.png" class="image {{ rarity | lowercase }}"/>
+    }
+</div>

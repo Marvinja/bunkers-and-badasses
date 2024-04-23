@@ -220,7 +220,27 @@
                                                 &.incendiary { --color: }
                                                 text-align: end;
                                                 text-wrap: wrap;
+
+                                                @media (min-width: 600px) {
+                                                    display: none;
+                                                }
                                             }
+                                        }
+
+                                        
+
+                                        p {
+                                            &.incendiary { --color: }
+                                            text-align: end;
+                                            text-wrap: wrap;
+
+                                            @media (max-width: 600px) {
+                                                display: none;
+                                            }
+                                        }
+
+                                        @media (max-width: 600px) {
+                                            justify-content: center;
                                         }
                                     }
                                 }

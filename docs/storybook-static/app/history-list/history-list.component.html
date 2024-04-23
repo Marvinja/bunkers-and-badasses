@@ -1,0 +1,16 @@
+<div class="bnb-history-list--container-list">
+    <div class="bnb-history-list--heading">
+        <p><b>Level</b></p>
+        <p><b>Prefix</b></p>
+        <p><b>Name</b></p>
+        <p><b>Rarity</b></p>
+        <p><b>Type</b></p>
+        <p><b>Guild</b></p>
+        <p><b>Element</b></p>
+    </div>
+    @if (data) {
+        @for(gun of data.slice().reverse();  track i; let i = $index) {
+            <bnb-history-list-item [gun]="gun" (loaded)="handleLoadGun(i)" (removed)="removeItemFromHistory(i)"></bnb-history-list-item>
+        }
+    }
+</div>

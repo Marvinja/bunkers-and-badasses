@@ -1,0 +1,204 @@
+:host {
+    .bnb-history-list {
+
+        &--container {
+            &-list {
+                display: grid;
+                grid-template-columns: max-content max-content 1fr repeat(5, max-content);
+            }
+
+        }
+
+        &--heading {
+            display: grid;
+            grid-template-columns: subgrid;
+            justify-items: center;
+            grid-column: 1 / 9;
+            gap: 1rem;
+            
+            p {
+                margin: 0.5rem;
+                &:nth-child(3) {
+                    justify-self: flex-start;
+                }
+            }
+        }
+        
+        &--item {
+            gap: 1rem;
+            display: grid;
+            justify-items: center;
+            align-items: center;
+            grid-template-columns: subgrid;
+            grid-column: 1 / 9;
+            margin-bottom: 0.5rem;
+            color: black;
+            --offset: 0.5rem;
+            clip-path: polygon(var(--offset) 0, 100% 0, 100% calc(100% - var(--offset)), calc(100% - var(--offset)) 100%, 0 100%, 0 var(--offset) );
+            position: relative;
+            z-index: 0;
+            isolation: isolate;
+
+            &::before {
+                content: '';
+                background: #f2f2f2;
+                inset: 2px 2px 2px 2px;
+                clip-path: polygon(var(--offset) 0, 100% 0, 100% calc(100% - var(--offset)), calc(100% - var(--offset)) 100%, 0 100%, 0 var(--offset) );
+                position: absolute;
+                z-index: -1;
+                opacity: 0.5;
+            }
+
+            p {
+                margin: 0.5rem;
+                &:nth-child(3) {
+                    justify-self: flex-start;
+                }
+            }
+            
+            button {
+                margin-inline: 1rem
+            }
+
+            &-common {
+                background: #e0e0e0;
+                color:black;
+            }
+            &-uncommon {
+                background: color-mix(in srgb, #00ac00 50%, #e0e0e0 50%);
+            }
+            &-rare {
+                background: color-mix(in srgb, #0851d8 50%, #e0e0e0 50%);
+            }
+            &-epic {
+                background: color-mix(in srgb, #9b02c2 50%, #e0e0e0 50%);
+            }
+            &-legendary {
+                background: color-mix(in srgb, #ffa100 50%, #e0e0e0 50%);
+                color: black;
+            }
+        }
+        
+        &--card {
+            display: none;
+        }
+    }
+
+    @media screen and (max-width: 900px) {
+        .bnb-history-list {
+
+            &--container {
+                &-list {
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    width: 100%;
+                }
+            }
+
+            &--heading {
+                display: none;
+            }
+
+            &--item {
+                display: none;
+            }
+
+            &--card {
+                display: grid;
+                grid-template-areas:  "details" "actions";
+                margin-block: 0.5rem;
+                background: #e0e0e0;
+                --offset: 0.5rem;
+                clip-path: polygon(var(--offset) 0, 100% 0, 100% calc(100% - var(--offset)), calc(100% - var(--offset)) 100%, 0 100%, 0 var(--offset) );
+                border-radius: 0.5rem;
+                padding: 0.25rem;
+
+                &.uncommon{
+                    background: color-mix(in srgb, #00ac00 40%, #e0e0e0 60%)
+                }
+                &.rare{
+                    background: color-mix(in srgb, #0851d8 40%, #e0e0e0 60%)
+                }
+                &.epic{
+                    background: color-mix(in srgb, #9b02c2 40%, #e0e0e0 60%)
+                }
+                &.legendary{
+                    background: color-mix(in srgb, #ffa600 40%, #e0e0e0 60%)
+                }
+
+
+                &-details {
+                    border-radius: 0.5rem;
+                    display: grid;
+                    justify-items: center;
+                    grid-template-areas: "level level level" "name name name" "guild element type";
+                    grid-template-columns: repeat(3, 1fr);
+                    margin-block-end: 0.25rem;
+                    background: #f2f2f2;
+                    
+                    .level {
+                        font-size: 14px;
+                        background: #f2f2f2;
+                    }
+                    
+                    .name {
+                        display: block;
+                        width: 100%;
+                        text-align: center;
+                        padding-block: 0.5rem;
+                        background: white;
+                    }
+
+                    .type, .guild, .element {
+                        width: 100%;
+                        display: block;
+                        text-align: center;
+                    }
+
+                    &-common {
+                        border-color: #e0e0e0;
+                    }
+                    &-uncommon {
+                        border-color: #00ac00;
+                        color: rgb(0, 172, 0);
+                    }
+                    &-rare {
+                        border-color: #0851d8;
+                        color: rgb(8, 81, 216);
+                    }
+                    &-epic {
+                        border-color: #9b02c2;
+                        color: rgb(155, 2, 194);
+                    }
+                    &-legendary {
+                        border-color: #ffa600;
+                        color: rgb(255, 166, 0);
+                    }
+                }
+
+                &-actions {
+                    width: 100%;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+
+                    button {
+                        background: #f2f2f2;
+                        padding: 0.25rem 0.5rem;
+                        flex-grow: 1;
+                        border: none;
+                        --offset: 0.5rem;
+                        clip-path: polygon(var(--offset) 0, 100% 0, 100% calc(100% - var(--offset)), calc(100% - var(--offset)) 100%, 0 100%, 0 var(--offset) );
+
+                        &:first-child {
+                            margin-inline: 0.5rem 0.25rem;
+                        }
+                        &:last-child {
+                            margin-inline: 0.25rem 0.5rem;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+}
