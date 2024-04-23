@@ -1,0 +1,71 @@
+<main class="main">
+  <h1>{{ title }}</h1>
+  
+  <div *ngIf="hasNDEFReader">
+    <button (click)="readTag()">Load Gun</button>
+    <dialog #dialog>
+      <div>
+        @if (dialogState === 'read') {
+          <h4>Tap your NFC chip to load gun</h4>
+        } @else {
+          <h4>Tap to save your gun to an NFC Chip</h4>
+        }
+        <h3 #loadedGun></h3>
+        <bnb-gun-card *ngIf="!!stagingGun" [level]="stagingGun.level" [type]="stagingGun.type" [guild]="stagingGun.guild" [rarity]="stagingGun.rarity" [element]="stagingGun.element" [prefix]="stagingGun.prefix" id="gunCard"/>
+        <button *ngIf="hasScannedItem" (click)="onSave()"><h4>Save Gun</h4></button>
+        <button (click)="closeDialog()" class="close">X</button>
+      </div>
+    </dialog>
+    <button (click)="writeTag()">Save Gun</button>
+  </div>
+
+  <br><br>
+  <button (click)="generateNewGun()">Generate!</button>
+  <br><br>
+  <label for="level">Level</label>
+  <input id="level" type="number" min="1" max="30" [defaultValue]="1" #level />
+
+  <form [formGroup]="gunForm" (ngSubmit)="onSubmit()" *ngIf="gunTypeRoll === 8 || (gunTypeRoll === 7 && gunGuildRoll === 8)">
+    <p>Select Favored Gun </p>
+    <label for="type">Type</label>
+    <select id="type" #type formControlName="type">
+      <option value="Pistol">Pistol</option>
+      <option value="Submachine Gun">Submachine Gun</option>
+      <option value="Shotgun">Shotgun</option>
+      <option value="Combat Rifle">Combat Rifle</option>
+      <option value="Sniper Rifle">Sniper Rifle</option>
+      <option value="Rocket Launcher">Rocket Launcher</option>
+    </select>
+    <label for="guild">Guild</label>
+    <select id="guild" #guild formControlName="guild">
+      <option value="Alas!">Alas!</option>
+      <option value="Skuldugger">Skuldugger</option>
+      <option value="Dahlia">Dahlia</option>
+      <option value="Blackpowder">Blackpowder</option>
+      <option value="Malefactor">Malefactor</option>
+      <option value="Hyperius">Hyperius</option>
+      <option value="Feriore">Feriore</option>
+      <option value="Torgue">Torgue</option>
+      <option value="Stoker">Stoker</option>
+    </select>
+    <button type="submit">Submit</button>
+  </form>
+  <p>{{ currentGun.level }} {{ currentGun.rarity !== "Legendary" ? currentGun.prefix : '' }} {{ currentGun.rarity }} {{ currentGun.guild }} {{ currentGun.type }}</p>
+
+</main>
+
+<bnb-gun-card-v2 [gun]="currentGun"></bnb-gun-card-v2>
+<!-- <bnb-gun-card [level]="currentGun.level" [type]="currentGun.type" [guild]="currentGun.guild" [rarity]="currentGun.rarity" [element]="currentGun.element" [prefix]="currentGun.prefix" id="gunCard"/> -->
+<hr>
+<h2>Loot Pile</h2>
+<bnb-history-list [data]="gunList" (loadGun)="loadGun($event)"/>
+<hr>
+<div *ngIf="hasNDEFReader">
+  <h4>Log</h4>
+  <button (click)="clearLog()">Clear Logs</button>
+  <p id="log" #log></p>
+</div>
+
+
+
+<router-outlet></router-outlet>

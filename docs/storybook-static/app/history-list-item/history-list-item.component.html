@@ -1,0 +1,33 @@
+<div *ngIf="!!gun" class="bnb-history-list-item row {{gun.rarity | lowercase }} selected" #item (dblclick)="onLoaded($event)">
+    <p>{{ gun.level }}</p>
+    <p>{{ gun.prefix }}</p>
+    <p>{{ convertElement(gun.element) }} {{ gun.prefix }} {{ gun.guild }} {{ gun.type }}</p>
+    <p>{{ gun.rarity }}</p>
+    <p>{{ gun.type }}</p>
+    <p>{{ gun.guild }}</p>
+    @if (gun.element === "N/A") {
+        <p>{{ gun.element }}</p>
+    } @else {
+        <div [style.display]="'flex'" style="display: flex; align-items: center;">
+            <img src="./assets/img/{{ (gun.element.includes('+') ? convertElement(gun.element) : gun.element) | lowercase }}.webp" width="24px"/>
+            <p [style.margin]="0">+1d6</p>
+        </div>
+    }
+    <div class="buttons">
+        <button (click)="onLoaded($event)"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button (click)="onRemove($event)" class="remove"><i class="fa-solid fa-trash"></i></button>
+    </div>
+</div>
+<div *ngIf="!!gun" class="card {{gun.rarity | lowercase}}">
+    <div class="card-details {{gun.rarity | lowercase}}" [style.grid-area]="'details'">
+        <p class="level" [style.grid-area]="'level'">level: {{ gun.level }}</p>
+        <h3 class="name" [style.grid-area]="'name'">{{ convertElement(gun.element) }} {{ gun.prefix }} {{ gun.guild }} {{ gun.type }}</h3>
+        <p class="guild" [style.grid-area]="'guild'">{{ gun.guild }}</p>
+        <p class="element" [style.grid-area]="'element'">{{ gun.element }}</p>
+        <p class="type" [style.grid-area]="'type'">{{ gun.type }}</p>
+    </div>
+    <div class="card-actions" [style.grid-area]="'actions'">
+        <button (click)="onLoaded($event)"><i class="fa-solid fa-magnifying-glass"></i> Inspect</button>
+        <button (click)="onRemove($event)" class="remove"><i class="fa-solid fa-trash"></i> Trash</button>
+    </div>
+</div>

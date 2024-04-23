@@ -1,0 +1,15 @@
+@mixin opposite-corners-shape($offset: 5px) {
+    clip-path: polygon($offset 0, 100% 0, 100% calc(100% - $offset), calc(100% - $offset) 100%, 0 100%, 0 $offset );
+    position: relative;
+    z-index: 0;
+    isolation: isolate;
+
+    &::before {
+        content: '';
+        background: #f2f2f2;
+        inset: 2px 2px 2px 2px;
+        clip-path: polygon($offset 0, 100% 0, 100% calc(100% - $offset), calc(100% - $offset) 100%, 0 100%, 0 $offset );
+        position: absolute;
+        z-index: -1;
+    }
+}
